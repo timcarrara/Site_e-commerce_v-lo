@@ -1,4 +1,6 @@
 DROP TABLE IF EXISTS ligne_panier;
+DROP TABLE IF EXISTS ligne_commande;
+DROP TABLE IF EXISTS commande;
 DROP TABLE IF EXISTS utilisateur;
 DROP TABLE IF EXISTS etat;
 DROP TABLE IF EXISTS velo;
@@ -16,15 +18,6 @@ CREATE TABLE utilisateur (
     nom VARCHAR(255),
     PRIMARY KEY (id_utilisateur)
 );
-
-CREATE TABLE etat(
-    id_etat INT AUTO_INCREMENT,
-    libelle_etat VARCHAR(50),
-    PRIMARY KEY (id_etat)
-);
-
-INSERT INTO etat(libelle_etat) VALUES
-('en attente'),('expedié'),('validé'),('confirmé');
 
 INSERT INTO utilisateur(id_utilisateur,login,email,password,role,nom) VALUES
 (1,'admin','admin@admin.fr',
@@ -94,12 +87,41 @@ INSERT INTO velo (nom_velo, prix_velo, taille_id, type_velo_id, matiere, descrip
 ('Kona Dew-E DL', 3519.00, 4, 3, 'Aluminium', 'Les navetteurs aiment le Dew-E DL pour son design élégant et parce qu''il est tout simplement amusant à conduire. Le cadre en aluminium est équipé d''une fourche Kona Rove Verso Full Carbon Flat Mount Disc. La transmission à vitesses s''harmonise parfaitement avec le moteur Shimano à plat et la batterie intégrée. Des garde-boue solides en aluminium et un éclairage te permettent de rester au sec et bien visible pendant ton trajet. De puissants freins à disque hydrauliques et des rotors de 160 mm te stoppent en un clin d''œil, même par temps humide, et les pneus increvables de 650x47c-Reifen te permettent de progresser aussi bien sur l''asphalte que sur les chemins de terre. C''est le vélo électrique de banlieue que vous cherchiez depuis longtemps !', 'Kona', 'Kona', 'kona-dew-e-dl.jpg'),
 ('Ridley Bikes Kanzo A Rival 1', 2299.00, 1, 1, 'Aluminium', 'Le Kanzo Aluminium est un vélo incroyablement polyvalent. Avec les pare-buffles montés, tu disposes d''un vélo de ville stable et idéal pour un trajet quotidien agréable vers le travail. Chausse des pneus tout-terrain pour t''amuser en dehors des sentiers battus. Le vélo Kanzo A Allroad dispose d''une grande liberté de mouvement des pneus et de nombreux œillets de cadre, ce qui le rend idéal pour transporter des bagages lors de randonnées à vélo. En route pour la nature et profitez-en ! Ce kanzo te soutiendra toujours. Grâce à sa géométrie parfaite, le confort et la stabilité sont parfaitement combinés. Avec ce vélo gravel économique, tu as aussi ce qu''il te faut sur les terrains de gravel. Sors de la rue et fais-en toi-même l''expérience !', 'Ridley', 'Ridley', 'ridley-bikes-kanzo-a-rival-1.jpg');
 
+CREATE TABLE etat(
+    id_etat INT AUTO_INCREMENT,
+    libelle_etat VARCHAR(255),
+    PRIMARY KEY (id_etat)
+);
+
+INSERT INTO etat(libelle_etat) VALUES
+('en attente'),('expedié'),('validé'),('confirmé');
+
 CREATE TABLE ligne_panier (
     utilisateur_id INT,
     velo_id INT,
     date_ajout DATETIME,
-    quantite INT,
+    quantite_panier INT,
     PRIMARY KEY (utilisateur_id,velo_id,date_ajout),
     FOREIGN KEY (utilisateur_id) REFERENCES utilisateur (id_utilisateur),
+    FOREIGN KEY (velo_id) REFERENCES velo (id_velo)
+);
+
+CREATE TABLE commande (
+    id_commande INT AUTO_INCREMENT,
+    date_achat DATETIME,
+    utilisateur_id INT,
+    etat_id INT,
+    PRIMARY KEY (id_commande),
+    FOREIGN KEY (utilisateur_id) REFERENCES utilisateur (id_utilisateur),
+    FOREIGN KEY (etat_id) REFERENCES etat (id_etat)
+);
+
+CREATE TABLE ligne_commande (
+    commande_id INT,
+    velo_id INT,
+    prix NUMERIC(10,2),
+    quantite_commande INT,
+    PRIMARY KEY (commande_id,velo_id),
+    FOREIGN KEY (commande_id) REFERENCES commande (id_commande),
     FOREIGN KEY (velo_id) REFERENCES velo (id_velo)
 );
