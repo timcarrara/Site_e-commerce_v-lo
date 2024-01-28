@@ -6,29 +6,6 @@ DROP TABLE IF EXISTS etat;
 DROP TABLE IF EXISTS velo;
 DROP TABLE IF EXISTS taille;
 DROP TABLE IF EXISTS type_velo;
-DROP TABLE IF EXISTS fournisseur;
-DROP TABLE IF EXISTS marque;
-
-CREATE TABLE utilisateur (
-    id_utilisateur INT AUTO_INCREMENT,
-    login VARCHAR(255),
-    email VARCHAR(255),
-    password VARCHAR(255),
-    role VARCHAR(255),
-    nom VARCHAR(255),
-    PRIMARY KEY (id_utilisateur)
-);
-
-INSERT INTO utilisateur(id_utilisateur,login,email,password,role,nom) VALUES
-(1,'admin','admin@admin.fr',
-    'pbkdf2:sha256:600000$828ij7RCZN24IWfq$3dbd14ea15999e9f5e340fe88278a45c1f41901ee6b2f56f320bf1fa6adb933d',
-    'ROLE_admin','admin'),
-(2,'client','client@client.fr',
-    'pbkdf2:sha256:600000$ik00jnCw52CsLSlr$9ac8f694a800bca6ee25de2ea2db9e5e0dac3f8b25b47336e8f4ef9b3de189f4',
-    'ROLE_client','client'),
-(3,'client2','client2@client2.fr',
-    'pbkdf2:sha256:600000$3YgdGN0QUT1jjZVN$baa9787abd4decedc328ed56d86939ce816c756ff6d94f4e4191ffc9bf357348',
-    'ROLE_client','client2');
 
 CREATE TABLE taille (
     id_taille INT AUTO_INCREMENT,
@@ -58,11 +35,69 @@ CREATE TABLE velo (
     FOREIGN KEY (type_velo_id) REFERENCES type_velo(id_type_velo) ON DELETE CASCADE
 );
 
+CREATE TABLE utilisateur (
+    id_utilisateur INT AUTO_INCREMENT,
+    login VARCHAR(255),
+    email VARCHAR(255),
+    password VARCHAR(255),
+    role VARCHAR(255),
+    nom VARCHAR(255),
+    PRIMARY KEY (id_utilisateur)
+);
+
+CREATE TABLE etat(
+    id_etat INT AUTO_INCREMENT,
+    libelle_etat VARCHAR(255),
+    PRIMARY KEY (id_etat)
+);
+
+CREATE TABLE commande (
+    id_commande INT AUTO_INCREMENT,
+    date_achat DATETIME,
+    utilisateur_id INT,
+    etat_id INT,
+    PRIMARY KEY (id_commande),
+    FOREIGN KEY (utilisateur_id) REFERENCES utilisateur (id_utilisateur),
+    FOREIGN KEY (etat_id) REFERENCES etat (id_etat)
+);
+
+CREATE TABLE ligne_commande (
+    commande_id INT,
+    velo_id INT,
+    prix NUMERIC(10,2),
+    quantite_commande INT,
+    PRIMARY KEY (commande_id,velo_id),
+    FOREIGN KEY (commande_id) REFERENCES commande (id_commande),
+    FOREIGN KEY (velo_id) REFERENCES velo (id_velo)
+);
+
+CREATE TABLE ligne_panier (
+    utilisateur_id INT,
+    velo_id INT,
+    date_ajout DATETIME,
+    quantite_panier INT,
+    PRIMARY KEY (utilisateur_id,velo_id,date_ajout),
+    FOREIGN KEY (utilisateur_id) REFERENCES utilisateur (id_utilisateur),
+    FOREIGN KEY (velo_id) REFERENCES velo (id_velo)
+);
+
 INSERT INTO taille (libelle_taille) VALUES
-('XS'), ('S'), ('M'), ('L'), ('XL');
+('XS'),
+('S'),
+('M'),
+('L'),
+('XL');
 
 INSERT INTO type_velo (libelle_type_velo) VALUES
-('Vélo gravel'), ('VTT'), ('Vélo électrique'), ('Vélo de ville'), ('Vélo de trekking'), ('Vélo enfant & ado'), ('BMX'), ('VTC'), ('Vélo de route');
+('Vélo gravel'),
+('VTT'),
+('Vélo électrique'),
+('Vélo de ville'),
+('Vélo de trekking'),
+('Vélo enfant & ado'),
+('BMX'),
+('VTC'),
+('Vélo de route');
 
 INSERT INTO velo (nom_velo, prix_velo, taille_id, type_velo_id, matiere, description, fournisseur, marque, image) VALUES
 ('Kona Rove SE', 1599.00, 1, 1, 'Acier', 'Le Rove est devenu le vélo de prédilection pour des personnes du monde entier qui ont simplement envie de... partir ! Il est spécifié de manière optimale, agréable à regarder, le Rove facilite les déplacements quotidiens, les sentiers en gravier, ou la sortie sportive après le travail sur la colline locale. Le Rove est le vélo CrMo 650x47c insaisissable que vous pouvez vous permettre. Il était branché avant que la tendance ne devienne branchée. C''est un vélo qui veut rouler partout où VOUS voulez rouler. Tube de direction conique : Un diamètre plus important à la base du tube de direction distribue mieux la force de choc, prolongeant la durée de vie du roulement du jeu de direction lui-même et éliminant les vibrations des freins, tout en offrant une performance de direction confiante. La force inhérente de sa conception triangulaire signifie également une position de direction plus solide et un équilibre amélioré, offrant au cycliste plus de contrôle sur un terrain accidenté. Un tube de direction conique, de type "zero-stack", place également la force là où elle va - dans la partie inférieure du jeu de direction - maximisant la durabilité du roulement là où c''est nécessaire. Roues de 650b : Les roues et pneus de 650b ont un diamètre global similaire à celui d''un pneu traditionnel de 700c pour gravier ou de déplacement, mais avec une jante de diamètre inférieur et un pneu plus large et plus haut. Le volume d''air supplémentaire dans cette nouvelle génération de pneus urbains et mixtes signifie qu''ils peuvent être utilisés confortablement à des pressions plus basses tout en roulant rapidement sur une variété de surfaces. C''est le meilleur des deux mondes.', 'Kona', 'Kona', 'kona-rove-se.jpg'),
@@ -87,41 +122,36 @@ INSERT INTO velo (nom_velo, prix_velo, taille_id, type_velo_id, matiere, descrip
 ('Kona Dew-E DL', 3519.00, 4, 3, 'Aluminium', 'Les navetteurs aiment le Dew-E DL pour son design élégant et parce qu''il est tout simplement amusant à conduire. Le cadre en aluminium est équipé d''une fourche Kona Rove Verso Full Carbon Flat Mount Disc. La transmission à vitesses s''harmonise parfaitement avec le moteur Shimano à plat et la batterie intégrée. Des garde-boue solides en aluminium et un éclairage te permettent de rester au sec et bien visible pendant ton trajet. De puissants freins à disque hydrauliques et des rotors de 160 mm te stoppent en un clin d''œil, même par temps humide, et les pneus increvables de 650x47c-Reifen te permettent de progresser aussi bien sur l''asphalte que sur les chemins de terre. C''est le vélo électrique de banlieue que vous cherchiez depuis longtemps !', 'Kona', 'Kona', 'kona-dew-e-dl.jpg'),
 ('Ridley Bikes Kanzo A Rival 1', 2299.00, 1, 1, 'Aluminium', 'Le Kanzo Aluminium est un vélo incroyablement polyvalent. Avec les pare-buffles montés, tu disposes d''un vélo de ville stable et idéal pour un trajet quotidien agréable vers le travail. Chausse des pneus tout-terrain pour t''amuser en dehors des sentiers battus. Le vélo Kanzo A Allroad dispose d''une grande liberté de mouvement des pneus et de nombreux œillets de cadre, ce qui le rend idéal pour transporter des bagages lors de randonnées à vélo. En route pour la nature et profitez-en ! Ce kanzo te soutiendra toujours. Grâce à sa géométrie parfaite, le confort et la stabilité sont parfaitement combinés. Avec ce vélo gravel économique, tu as aussi ce qu''il te faut sur les terrains de gravel. Sors de la rue et fais-en toi-même l''expérience !', 'Ridley', 'Ridley', 'ridley-bikes-kanzo-a-rival-1.jpg');
 
-CREATE TABLE etat(
-    id_etat INT AUTO_INCREMENT,
-    libelle_etat VARCHAR(255),
-    PRIMARY KEY (id_etat)
-);
+
+INSERT INTO utilisateur(id_utilisateur,login,email,password,role,nom) VALUES
+(1,'admin','admin@admin.fr',
+    'pbkdf2:sha256:600000$828ij7RCZN24IWfq$3dbd14ea15999e9f5e340fe88278a45c1f41901ee6b2f56f320bf1fa6adb933d',
+    'ROLE_admin','admin'),
+(2,'client','client@client.fr',
+    'pbkdf2:sha256:600000$ik00jnCw52CsLSlr$9ac8f694a800bca6ee25de2ea2db9e5e0dac3f8b25b47336e8f4ef9b3de189f4',
+    'ROLE_client','client'),
+(3,'client2','client2@client2.fr',
+    'pbkdf2:sha256:600000$3YgdGN0QUT1jjZVN$baa9787abd4decedc328ed56d86939ce816c756ff6d94f4e4191ffc9bf357348',
+    'ROLE_client','client2');
 
 INSERT INTO etat(libelle_etat) VALUES
-('en attente'),('expedié'),('validé'),('confirmé');
+('en attente'),
+('expedié'),
+('validé'),
+('confirmé');
 
-CREATE TABLE ligne_panier (
-    utilisateur_id INT,
-    velo_id INT,
-    date_ajout DATETIME,
-    quantite_panier INT,
-    PRIMARY KEY (utilisateur_id,velo_id,date_ajout),
-    FOREIGN KEY (utilisateur_id) REFERENCES utilisateur (id_utilisateur),
-    FOREIGN KEY (velo_id) REFERENCES velo (id_velo)
-);
+INSERT INTO commande (date_achat, utilisateur_id, etat_id) VALUES
+('2024-01-27 14:45:50', 2, 4),
+('2024-01-28 20:00:00', 3, 2),
+('2024-01-01 8:15:30', 1, 1);
 
-CREATE TABLE commande (
-    id_commande INT AUTO_INCREMENT,
-    date_achat DATETIME,
-    utilisateur_id INT,
-    etat_id INT,
-    PRIMARY KEY (id_commande),
-    FOREIGN KEY (utilisateur_id) REFERENCES utilisateur (id_utilisateur),
-    FOREIGN KEY (etat_id) REFERENCES etat (id_etat)
-);
+INSERT INTO ligne_commande (commande_id, velo_id, prix, quantite_commande) VALUES
+(1, 10, 4998.00, 2),
+(1, 21, 2299.00, 1),
+(2, 4, 12396.00, 3);
 
-CREATE TABLE ligne_commande (
-    commande_id INT,
-    velo_id INT,
-    prix NUMERIC(10,2),
-    quantite_commande INT,
-    PRIMARY KEY (commande_id,velo_id),
-    FOREIGN KEY (commande_id) REFERENCES commande (id_commande),
-    FOREIGN KEY (velo_id) REFERENCES velo (id_velo)
-);
+INSERT INTO ligne_panier (utilisateur_id, velo_id, date_ajout, quantite_panier)
+VALUES
+(1, 12, '2024-01-24 08:00:00', 2),
+(2, 16, '2024-01-28 10:45:00', 3),
+(3, 8, '2024-01-15 12:15:00', 1);
