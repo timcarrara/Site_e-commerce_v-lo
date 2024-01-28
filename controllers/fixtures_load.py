@@ -11,9 +11,11 @@ fixtures_load = Blueprint('fixtures_load', __name__, template_folder='templates'
 @fixtures_load.route('/base/init')
 def fct_fixtures_load():
     mycursor = get_db().cursor()
-    for table in ['ligne_panier', 'ligne_commande', 'commande','utilisateur', 'velo', 'taille', 'type_velo', 'fournisseur', 'marque']:
-        sql = f'DROP TABLE IF EXISTS {table};'
-        mycursor.execute(sql)
+    sql='''
+    DROP TABLE IF EXISTS ligne_panier, ligne_commande, commande,utilisateur, velo, taille, type_velo;
+    '''
+    mycursor.execute(sql)
+
 
     sql = '''
     CREATE TABLE utilisateur(
@@ -50,6 +52,7 @@ def fct_fixtures_load():
     PRIMARY KEY(id_taille)
     ) DEFAULT CHARSET utf8;  
     '''
+
     mycursor.execute(sql)
     sql = ''' 
     INSERT INTO taille (libelle_taille) VALUES ('XS'), ('S'), ('M'), ('L'), ('XL');
@@ -130,8 +133,9 @@ def fct_fixtures_load():
     mycursor.execute(sql)
     sql = '''
     INSERT INTO commande (date_achat, utilisateur_id, etat_id) VALUES 
-    ('2024-01-27, 12:30:00', 2, 4),
-    ('2024-01-28, 14:45:00', 3, 2);
+    ('2024-01-27', 2, 4),
+    ('2024-01-28', 3, 2),
+    ('2024-01-01', 1, 1);
     '''
     mycursor.execute(sql)
 
@@ -159,11 +163,19 @@ def fct_fixtures_load():
     utilisateur_id INT,
     velo_id INT,
     date_ajout DATETIME,
-    quantite INT,
+    quantite_panier INT,
     PRIMARY KEY (utilisateur_id,velo_id,date_ajout),
     FOREIGN KEY (utilisateur_id) REFERENCES utilisateur(id_utilisateur), 
     FOREIGN KEY (velo_id) REFERENCES velo (id_velo)
     );
+    '''
+    mycursor.execute(sql)
+
+    sql='''
+    INSERT INTO ligne_panier (utilisateur_id, velo_id, date_ajout, quantite_panier) VALUES
+    (1, 12, '2024-01-24 08:00:00', 2),
+    (2, 16, '2024-01-28 10:45:00', 3),
+    (3, 8, '2024-01-15 12:15:00', 1);
     '''
     mycursor.execute(sql)
 
