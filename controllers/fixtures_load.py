@@ -25,11 +25,11 @@ def fct_fixtures_load():
     nom VARCHAR(255),
     est_actif TINYINT,
     PRIMARY KEY (id_utilisateur)
-    )  DEFAULT CHARSET utf8;  
+    )  DEFAULT CHARSET utf8;
     '''
 
     mycursor.execute(sql)
-    sql = ''' 
+    sql = '''
     INSERT INTO utilisateur(id_utilisateur,login,email,password,role,nom) VALUES
 (1,'admin','admin@admin.fr',
     'pbkdf2:sha256:600000$828ij7RCZN24IWfq$3dbd14ea15999e9f5e340fe88278a45c1f41901ee6b2f56f320bf1fa6adb933d',
@@ -43,34 +43,34 @@ def fct_fixtures_load():
     '''
     mycursor.execute(sql)
 
-    sql = ''' 
+    sql = '''
     CREATE TABLE taille (
     id_taille INT AUTO_INCREMENT,
     libelle_taille VARCHAR(50),
     PRIMARY KEY(id_taille)
-    ) DEFAULT CHARSET utf8;  
+    ) DEFAULT CHARSET utf8;
     '''
     mycursor.execute(sql)
-    sql = ''' 
+    sql = '''
     INSERT INTO taille (libelle_taille) VALUES ('XS'), ('S'), ('M'), ('L'), ('XL');
     '''
     mycursor.execute(sql)
 
-    sql = ''' 
+    sql = '''
     CREATE TABLE type_velo (
     id_type_velo INT AUTO_INCREMENT,
     libelle_type_velo VARCHAR(50),
     PRIMARY KEY(id_type_velo)
-    ) DEFAULT CHARSET=utf8;  
+    ) DEFAULT CHARSET=utf8;
     '''
     mycursor.execute(sql)
-    sql = ''' 
+    sql = '''
     INSERT INTO type_velo (libelle_type_velo) VALUES
     ('Vélo gravel'), ('VTT'), ('Vélo électrique'), ('Vélo de ville'), ('Vélo de trekking'), ('Vélo enfant & ado'), ('BMX'), ('VTC'), ('Vélo de route');
     '''
     mycursor.execute(sql)
 
-    sql = ''' 
+    sql = '''
     CREATE TABLE velo (
     id_velo INT AUTO_INCREMENT,
     nom_velo VARCHAR(255),
@@ -85,11 +85,11 @@ def fct_fixtures_load():
     PRIMARY KEY(id_velo),
     FOREIGN KEY (taille_id) REFERENCES taille(id_taille) ON DELETE CASCADE,
     FOREIGN KEY (type_velo_id) REFERENCES type_velo(id_type_velo) ON DELETE CASCADE
-    )  DEFAULT CHARSET=utf8;  
+    )  DEFAULT CHARSET=utf8;
     '''
     mycursor.execute(sql)
 
-    sql = ''' 
+    sql = '''
     INSERT INTO velo (nom_velo, prix_velo, taille_id, type_velo_id, matiere, description, fournisseur, marque, image) VALUES
     ('Kona Rove SE', 1599.00, 1, 1, 'Acier', 'Le Rove est devenu le vélo de prédilection pour des personnes du monde entier qui ont simplement envie de... partir ! Il est spécifié de manière optimale, agréable à regarder, le Rove facilite les déplacements quotidiens, les sentiers en gravier, ou la sortie sportive après le travail sur la colline locale. Le Rove est le vélo CrMo 650x47c insaisissable que vous pouvez vous permettre. Il était branché avant que la tendance ne devienne branchée. C''est un vélo qui veut rouler partout où VOUS voulez rouler. Tube de direction conique : Un diamètre plus important à la base du tube de direction distribue mieux la force de choc, prolongeant la durée de vie du roulement du jeu de direction lui-même et éliminant les vibrations des freins, tout en offrant une performance de direction confiante. La force inhérente de sa conception triangulaire signifie également une position de direction plus solide et un équilibre amélioré, offrant au cycliste plus de contrôle sur un terrain accidenté. Un tube de direction conique, de type "zero-stack", place également la force là où elle va - dans la partie inférieure du jeu de direction - maximisant la durabilité du roulement là où c''est nécessaire. Roues de 650b : Les roues et pneus de 650b ont un diamètre global similaire à celui d''un pneu traditionnel de 700c pour gravier ou de déplacement, mais avec une jante de diamètre inférieur et un pneu plus large et plus haut. Le volume d''air supplémentaire dans cette nouvelle génération de pneus urbains et mixtes signifie qu''ils peuvent être utilisés confortablement à des pressions plus basses tout en roulant rapidement sur une variété de surfaces. C''est le meilleur des deux mondes.', 1, 1, 'kona-rove-se.jpg'),
     ('Vitus Mythique 29 VRS', 2099.99, 2, 2, 'Aluminium', 'La nouvelle génération du Mythique s''appuie sur son héritage primé et est un vélo de trail en aluminium axé sur la performance. C''est un vélo polyvalent idéal, dont chaque modèle est équipé de composants soigneusement sélectionnés, parfaitement adaptés les uns aux autres, pour un maximum de plaisir sur les sentiers. Nous avons tous notre trail préféré. Ce n''est peut-être pas le plus technique, il n''a peut-être pas les virages les plus raides ou les descentes qui donnent des sueurs froides, mais ce flow est tellement agréable à conduire. On peut en imaginer chaque centimètre. Chaque montée, chaque descente et chaque virage. Élu. Le Vitus Mythique 29 VRS procure exactement cette sensation de légèreté et renforce votre confiance grâce à sa capacité et à son contrôle éprouvés, de sorte que chaque sentier vous donne l''impression d''être un nouveau favori. Le Mythique ne se soucie pas de votre style de conduite ou de l''endroit où vous roulez - il apporte simplement le plaisir. L''inconvénient ? Combien de temps vous devez attendre que vos copains vous rejoignent. Le but du Mythique n''est pas nécessairement de devenir aussi grossier et frénétique que possible, mais si tu cherches à faire quelque chose de plus agressif, il suivra volontiers. C''est un vélo de trail qui est maniable et ludique sans être incontrôlable. Rétrécissez-le avec légèreté ou relâchez-vous et libérez tout votre potentiel de trail. C''est une performance constante tout au long du parcours de la part d''un vélo qui gère les sections techniques avec calme, équilibre et sérénité. La conception de la suspension est une plateforme qui a fait ses preuves depuis longtemps et qui permet de mieux prévenir les coups de pédale lors de l''escalade et de rester prévisible lors du freinage. Grâce aux composants fiables Shimano Deore, dont une transmission à vitesses, ce vélo est immédiatement prêt à rouler. La Mythique est une bête de somme à ne pas sous-estimer - digne de confiance et contrôlée - avec une capacité à dompter les sentiers qui est bien au-dessus de son niveau de prix. C''est un vélo qui inspire confiance, sans définir ton style - le flair vient de toi, le vélo t''aide juste à suivre la ligne parfaite. Géométrie mise à jour : Côte à côte, les changements sont clairement visibles. À l''avant, le tube de direction est plus plat de 0,5 (66 contre 65,5 avec une fourche de 140 mm), ce qui permet un meilleur contrôle sur un plus large éventail de terrains, en particulier lorsqu''ils deviennent plus raides et plus techniques. Ceci est compensé par un angle de tube de selle effectif révisé, plus raide de 1,5 (76 à 77,5 avec une fourche de 140 mm), qui reflète le reach modifié et positionne le cycliste plus au-dessus du boîtier de pédalier pour une escalade plus efficace. Reach : Vitus ne réserve pas les fonctionnalités aux modèles haut de gamme. Surtout lorsqu''il s''agit de la géométrie - si elle profite à tous les cyclistes, elle est utile dans tous les segments de prix. Vitus a regardé de plus près le Sommet et l''Escarpe et a adapté la géométrie en conséquence, de sorte que le Mythique est beaucoup plus réactif dans les montées. Vous ne vous sentirez plus flasque et inerte à l''arrière du vélo. Slam the Dropper. Le nouveau Mythique peut désormais être équipé d''un dropper complet dans toutes les tailles, ce qui vous permet de maximiser votre liberté de mouvement et de récupérer du poids lorsque le trail descend. Maintenu simple : Rien ne gâche autant le plaisir de rouler que les normes et le jargon de l''industrie du. Le Mythique veut rester simple. L''accent est mis sur des travaux de maintenance et d''entretien aussi simples que possible pour le client. L''utilisation de pièces, de roulements et de matériel qui ont une longue durée de vie et sont largement disponibles. Des pièces qui ont été minutieusement testées sur le Mythique dans toutes les conditions.', 2, 2, 'haibike-trekking-4-trapeze.jpg'),
@@ -129,7 +129,7 @@ def fct_fixtures_load():
 
     mycursor.execute(sql)
     sql = '''
-    INSERT INTO commande (date_achat, utilisateur_id, etat_id) VALUES 
+    INSERT INTO commande (date_achat, utilisateur_id, etat_id) VALUES
     ('2024-01-27, 12:30:00', 2, 4),
     ('2024-01-28, 14:45:00', 3, 2);
     '''
@@ -149,7 +149,7 @@ def fct_fixtures_load():
     mycursor.execute(sql)
 
     sql = '''
-    INSERT INTO ligne_commande (commande_id, velo_id, prix, quantite_commande) VALUES 
+    INSERT INTO ligne_commande (commande_id, velo_id, prix, quantite_commande) VALUES
     (1, 10, 4998.00, 2), (1, 21, 2299.00, 1), (2, 4, 12396.00, 3);
     '''
     mycursor.execute(sql)
@@ -161,7 +161,7 @@ def fct_fixtures_load():
     date_ajout DATETIME,
     quantite INT,
     PRIMARY KEY (utilisateur_id,velo_id,date_ajout),
-    FOREIGN KEY (utilisateur_id) REFERENCES utilisateur(id_utilisateur), 
+    FOREIGN KEY (utilisateur_id) REFERENCES utilisateur(id_utilisateur),
     FOREIGN KEY (velo_id) REFERENCES velo (id_velo)
     );
     '''
