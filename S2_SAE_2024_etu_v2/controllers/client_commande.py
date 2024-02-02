@@ -65,7 +65,9 @@ def client_commande_add():
 def client_commande_show():
     mycursor = get_db().cursor()
     id_client = session['id_user']
-    sql = '''  selection des commandes ordonnées par état puis par date d'achat descendant '''
+    sql = ''' SELECT * FROM commande
+              ORDER BY etat_id AND commande.date_achat DESC'''
+    mycursor.execute(sql)
     commandes = []
 
     velos_commande = None
@@ -73,13 +75,13 @@ def client_commande_show():
     id_commande = request.args.get('id_commande', None)
     if id_commande != None:
         print(id_commande)
-        sql = ''' selection du détails d'une commande '''
+        sql = ''' SELECT * FROM ligne_commande '''
+        mycursor.execute(sql)
 
         # partie 2 : selection de l'adresse de livraison et de facturation de la commande selectionnée
         sql = ''' selection des adressses '''
 
-    return render_template('client/commandes/show.html'
-                           , commandes=commandes
+    return render_template('client/commandes/show.html', commandes=commandes
                            , velos_commande=velos_commande
                            , commande_adresses=commande_adresses
                            )

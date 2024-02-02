@@ -6,6 +6,7 @@ DROP TABLE IF EXISTS etat;
 DROP TABLE IF EXISTS velo;
 DROP TABLE IF EXISTS taille;
 DROP TABLE IF EXISTS type_velo;
+DROP TABLE IF EXISTS adresse;
 
 CREATE TABLE taille (
     id_taille INT AUTO_INCREMENT,
@@ -81,6 +82,15 @@ CREATE TABLE ligne_panier (
     FOREIGN KEY (velo_id) REFERENCES velo (id_velo)
 );
 
+CREATE TABLE adresse (
+    id_adresse INT AUTO_INCREMENT,
+    nom_client VARCHAR(100),
+    rue VARCHAR(255),
+    code_postal INT,
+    ville VARCHAR(50),
+    PRIMARY KEY (id_adresse)
+);
+
 INSERT INTO taille (libelle_taille) VALUES
 ('XS'),
 ('S'),
@@ -150,8 +160,7 @@ INSERT INTO ligne_commande (commande_id, velo_id, prix, quantite_commande) VALUE
 (1, 21, 2299.00, 1),
 (2, 4, 12396.00, 3);
 
-INSERT INTO ligne_panier (utilisateur_id, velo_id, date_ajout, quantite_panier)
-VALUES
+INSERT INTO ligne_panier (utilisateur_id, velo_id, date_ajout, quantite_panier) VALUES
 (1, 12, '2024-01-24 08:00:00', 2),
 (2, 16, '2024-01-28 10:45:00', 3),
 (3, 8, '2024-01-15 12:15:00', 1);
