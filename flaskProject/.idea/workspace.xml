@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="1ea9c96b-35e9-4c90-b6ae-96a14160d3b4" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/.idea/S2_SAE_2024_etu_v2.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/.idea/dataSources.local.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/.idea/dataSources/9ce4aa64-5abc-4ed0-93c9-e137d557c4e1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/.idea/dataSources/9ce4aa64-5abc-4ed0-93c9-e137d557c4e1/storage_v2/_src_/schema/BDD_tcarrara.23KGpA.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/.idea/dataSources/9ce4aa64-5abc-4ed0-93c9-e137d557c4e1/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/.idea/dataSources/9ce4aa64-5abc-4ed0-93c9-e137d557c4e1/storage_v2/_src_/schema/mysql.osA4Bg.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/.idea/dataSources/9ce4aa64-5abc-4ed0-93c9-e137d557c4e1/storage_v2/_src_/schema/performance_schema.kIw0nw.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/.idea/dataSources/9ce4aa64-5abc-4ed0-93c9-e137d557c4e1/storage_v2/_src_/schema/sys.zb4BAA.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/.idea/sqldialects.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/app.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/connexion_db.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/controllers/admin_commande.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/controllers/admin_commentaire.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/controllers/admin_dataviz.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/controllers/admin_declinaison_velo.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/controllers/admin_type_velo.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/controllers/admin_velo.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/controllers/auth_security.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/controllers/client_commande.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/controllers/client_commentaire.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/controllers/client_coordonnee.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/controllers/client_liste_envies.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/controllers/client_panier.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/controllers/client_velo.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/controllers/fixtures_load.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/flask_run.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/launcher.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/sae_sql.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/static/assets/css/bootstrap.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/static/assets/js/bootstrap.bundle.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/static/favicon.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/static/images/3t-exploro-race-ekar-1x13.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/static/images/cinelli-zydeco.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/static/images/cube-aerium-c68-sl-low.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/static/images/cube-nature-pro.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/static/images/cube-reaction-hybrid-performance-500-allroad-trapeze.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/static/images/haibike-trekking-4-trapeze.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/static/images/kona-dew-e-dl.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/static/images/kona-honzo.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/static/images/kona-rove-se.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/static/images/mongoose-california-special.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/static/images/ortler-detroit-cargo-steel-swing.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/static/images/ortler-van-dyck-trapeze.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/static/images/ridley-bikes-helium-disc-105.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/static/images/ridley-bikes-kanzo-a-rival-1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/static/images/scool-nixe-alloy-18-kids.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/static/images/serious-bear-rock.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/static/images/test.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/static/images/test.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/static/images/test2.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/static/images/test2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/static/images/vitus-escarpe-29-amp-intl-vitus.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/static/images/vitus-mythique-29-vrs.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/static/images/wethepeople-arcade.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/static/images/winora-domingo-21-diamond.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/static/images/winora-domingo-27-sport-trapeze.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/static/images_asset/addCommande.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/static/images_asset/addCommande2.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/static/images_asset/ajoutCommentaire.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/static/images_asset/ajoutPanier.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/static/images_asset/deleteCommande.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/static/images_asset/deletePanier.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/static/images_asset/imageProduit.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/static/images_asset/logo.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/static/images_asset/quitterValiderCommande.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/static/logo-dept-info.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/static/mes_styles.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/templates/admin/_nav_admin.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/templates/admin/commandes/show.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/templates/admin/dataviz/dataviz_etat_1.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/templates/admin/dataviz/dataviz_etat_map.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/templates/admin/dataviz/franceMap.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/templates/admin/layout_admin.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/templates/admin/type_velo/add_type_velo.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/templates/admin/type_velo/edit_type_velo.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/templates/admin/type_velo/show_type_velo.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/templates/admin/velo/add_commentaire.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/templates/admin/velo/add_declinaison_article.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/templates/admin/velo/add_velo.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/templates/admin/velo/edit_declinaison_article.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/templates/admin/velo/edit_velo.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/templates/admin/velo/show_avis.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/templates/admin/velo/show_velo.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/templates/admin/velo/show_velo_commentaires.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/templates/auth/_nav.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/templates/auth/forget_password.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/templates/auth/layout.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/templates/auth/login.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/templates/auth/signup.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/templates/client/_nav_client.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/templates/client/boutique/_filtre.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/templates/client/boutique/_panier.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/templates/client/boutique/declinaison_article.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/templates/client/boutique/panier_validation_adresses.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/templates/client/boutique/panier_velo.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/templates/client/commandes/show.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/templates/client/coordonnee/add_adresse.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/templates/client/coordonnee/edit_adresse.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/templates/client/coordonnee/edit_coordonnee.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/templates/client/coordonnee/show_coordonnee.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/templates/client/layout_client.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/templates/client/liste_envies/liste_envies_show.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2/templates/client/velo_info/velo_details.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Flask Main" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 3
+}]]></component>
+  <component name="ProjectId" id="2bl0mprA4BAHkrMJph9qkxOaqld" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Database Script.scratch_1.sql.executor": "Run",
+    "Flask server.Flask (app.py).executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "/home/carrara/Téléchargements/tp2_ajax",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
+    ],
+    "RunConfigurationTargetLRU": [
+      "f10f91eb-83eb-43fc-a96a-599fdeb17d44"
+    ],
+    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
+      "MySQL"
+    ]
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="scratch_1.sql" type="DatabaseScript" editBeforeRun="true" nameIsGenerated="true">
+      <script-file value="$PROJECT_DIR$/scratch_1.sql" />
+      <script-mode>FILE</script-mode>
+      <data-source id="f10f91eb-83eb-43fc-a96a-599fdeb17d44" />
+      <method v="2" />
+    </configuration>
+    <configuration name="flaskProject" type="Python.FlaskServer">
+      <module name="flaskProject" />
+      <option name="target" value="$PROJECT_DIR$/app.py" />
+      <option name="targetType" value="PATH" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-67fca87a943a-c986f194a52a-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-233.11799.259" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1ea9c96b-35e9-4c90-b6ae-96a14160d3b4" name="Changes" comment="" />
+      <created>1706774520365</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1706774520365</updated>
+      <workItem from="1706774523180" duration="1666000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/flaskProject$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1706774807428" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+  </component>
+</project>
