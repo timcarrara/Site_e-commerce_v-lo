@@ -1139,7 +1139,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     </schema>
     <schema id="292" parent="1" name="BDD_tcarrara">
       <Current>1</Current>
-      <LastIntrospectionLocalTimestamp>2024-02-02.12:24:01</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2024-02-03.12:17:02</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <user id="293" parent="1" name="debian-sys-maint">
@@ -1351,418 +1351,431 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <DasType>varchar(50)|0s</DasType>
       <Position>5</Position>
     </column>
-    <index id="341" parent="302" name="PRIMARY">
+    <column id="341" parent="302" name="utilisateur_id">
+      <DasType>int|0s</DasType>
+      <Position>6</Position>
+    </column>
+    <foreign-key id="342" parent="302" name="adresse_ibfk_1">
+      <ColNames>utilisateur_id</ColNames>
+      <RefColNames>id_utilisateur</RefColNames>
+      <RefTableName>utilisateur</RefTableName>
+    </foreign-key>
+    <index id="343" parent="302" name="PRIMARY">
       <ColNames>id_adresse</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="342" parent="302" name="PRIMARY">
+    <index id="344" parent="302" name="utilisateur_id">
+      <ColNames>utilisateur_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="345" parent="302" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="343" parent="303" name="id_commande">
+    <column id="346" parent="303" name="id_commande">
       <AutoIncrement>4</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="344" parent="303" name="date_achat">
+    <column id="347" parent="303" name="date_achat">
       <DasType>datetime|0s</DasType>
       <Position>2</Position>
     </column>
-    <column id="345" parent="303" name="utilisateur_id">
+    <column id="348" parent="303" name="utilisateur_id">
       <DasType>int|0s</DasType>
       <Position>3</Position>
     </column>
-    <column id="346" parent="303" name="etat_id">
+    <column id="349" parent="303" name="etat_id">
       <DasType>int|0s</DasType>
       <Position>4</Position>
     </column>
-    <foreign-key id="347" parent="303" name="commande_ibfk_1">
+    <foreign-key id="350" parent="303" name="commande_ibfk_1">
       <ColNames>utilisateur_id</ColNames>
       <RefColNames>id_utilisateur</RefColNames>
       <RefTableName>utilisateur</RefTableName>
     </foreign-key>
-    <foreign-key id="348" parent="303" name="commande_ibfk_2">
+    <foreign-key id="351" parent="303" name="commande_ibfk_2">
       <ColNames>etat_id</ColNames>
       <RefColNames>id_etat</RefColNames>
       <RefTableName>etat</RefTableName>
     </foreign-key>
-    <index id="349" parent="303" name="PRIMARY">
+    <index id="352" parent="303" name="PRIMARY">
       <ColNames>id_commande</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="350" parent="303" name="utilisateur_id">
+    <index id="353" parent="303" name="utilisateur_id">
       <ColNames>utilisateur_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="351" parent="303" name="etat_id">
+    <index id="354" parent="303" name="etat_id">
       <ColNames>etat_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="352" parent="303" name="PRIMARY">
+    <key id="355" parent="303" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="353" parent="304" name="id_etat">
+    <column id="356" parent="304" name="id_etat">
       <AutoIncrement>5</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="354" parent="304" name="libelle_etat">
+    <column id="357" parent="304" name="libelle_etat">
       <DasType>varchar(255)|0s</DasType>
       <Position>2</Position>
     </column>
-    <index id="355" parent="304" name="PRIMARY">
+    <index id="358" parent="304" name="PRIMARY">
       <ColNames>id_etat</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="356" parent="304" name="PRIMARY">
+    <key id="359" parent="304" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="357" parent="305" name="id_hotel">
+    <column id="360" parent="305" name="id_hotel">
       <AutoIncrement>14</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="358" parent="305" name="nom_hotel">
+    <column id="361" parent="305" name="nom_hotel">
       <DasType>varchar(50)|0s</DasType>
       <Position>2</Position>
     </column>
-    <column id="359" parent="305" name="nombre_chambre">
+    <column id="362" parent="305" name="nombre_chambre">
       <DasType>int|0s</DasType>
       <Position>3</Position>
     </column>
-    <column id="360" parent="305" name="categorie">
+    <column id="363" parent="305" name="categorie">
       <DasType>int|0s</DasType>
       <Position>4</Position>
     </column>
-    <column id="361" parent="305" name="prix_base_chambre">
+    <column id="364" parent="305" name="prix_base_chambre">
       <DasType>float|0s</DasType>
       <Position>5</Position>
     </column>
-    <column id="362" parent="305" name="date_creation">
+    <column id="365" parent="305" name="date_creation">
       <DasType>date|0s</DasType>
       <Position>6</Position>
     </column>
-    <column id="363" parent="305" name="photo">
+    <column id="366" parent="305" name="photo">
       <DasType>varchar(100)|0s</DasType>
       <Position>7</Position>
     </column>
-    <column id="364" parent="305" name="station_id">
+    <column id="367" parent="305" name="station_id">
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>8</Position>
     </column>
-    <foreign-key id="365" parent="305" name="hotel_ibfk_1">
+    <foreign-key id="368" parent="305" name="hotel_ibfk_1">
       <ColNames>station_id</ColNames>
       <RefColNames>id_station</RefColNames>
       <RefTableName>station</RefTableName>
     </foreign-key>
-    <index id="366" parent="305" name="PRIMARY">
+    <index id="369" parent="305" name="PRIMARY">
       <ColNames>id_hotel</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="367" parent="305" name="hotel_ibfk_1">
+    <index id="370" parent="305" name="hotel_ibfk_1">
       <ColNames>station_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="368" parent="305" name="PRIMARY">
+    <key id="371" parent="305" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="369" parent="306" name="commande_id">
+    <column id="372" parent="306" name="commande_id">
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="370" parent="306" name="velo_id">
+    <column id="373" parent="306" name="velo_id">
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="371" parent="306" name="prix">
+    <column id="374" parent="306" name="prix">
       <DasType>decimal(10,2 digit)|0s</DasType>
       <Position>3</Position>
     </column>
-    <column id="372" parent="306" name="quantite_commande">
+    <column id="375" parent="306" name="quantite_commande">
       <DasType>int|0s</DasType>
       <Position>4</Position>
     </column>
-    <foreign-key id="373" parent="306" name="ligne_commande_ibfk_1">
+    <foreign-key id="376" parent="306" name="ligne_commande_ibfk_1">
       <ColNames>commande_id</ColNames>
       <RefColNames>id_commande</RefColNames>
       <RefTableName>commande</RefTableName>
     </foreign-key>
-    <foreign-key id="374" parent="306" name="ligne_commande_ibfk_2">
+    <foreign-key id="377" parent="306" name="ligne_commande_ibfk_2">
       <ColNames>velo_id</ColNames>
       <RefColNames>id_velo</RefColNames>
       <RefTableName>velo</RefTableName>
     </foreign-key>
-    <index id="375" parent="306" name="PRIMARY">
+    <index id="378" parent="306" name="PRIMARY">
       <ColNames>commande_id
 velo_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="376" parent="306" name="velo_id">
+    <index id="379" parent="306" name="velo_id">
       <ColNames>velo_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="377" parent="306" name="PRIMARY">
+    <key id="380" parent="306" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="378" parent="307" name="utilisateur_id">
+    <column id="381" parent="307" name="utilisateur_id">
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="379" parent="307" name="velo_id">
+    <column id="382" parent="307" name="velo_id">
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="380" parent="307" name="date_ajout">
+    <column id="383" parent="307" name="date_ajout">
       <DasType>datetime|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="381" parent="307" name="quantite_panier">
+    <column id="384" parent="307" name="quantite_panier">
       <DasType>int|0s</DasType>
       <Position>4</Position>
     </column>
-    <foreign-key id="382" parent="307" name="ligne_panier_ibfk_1">
+    <foreign-key id="385" parent="307" name="ligne_panier_ibfk_1">
       <ColNames>utilisateur_id</ColNames>
       <RefColNames>id_utilisateur</RefColNames>
       <RefTableName>utilisateur</RefTableName>
     </foreign-key>
-    <foreign-key id="383" parent="307" name="ligne_panier_ibfk_2">
+    <foreign-key id="386" parent="307" name="ligne_panier_ibfk_2">
       <ColNames>velo_id</ColNames>
       <RefColNames>id_velo</RefColNames>
       <RefTableName>velo</RefTableName>
     </foreign-key>
-    <index id="384" parent="307" name="PRIMARY">
+    <index id="387" parent="307" name="PRIMARY">
       <ColNames>utilisateur_id
 velo_id
 date_ajout</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="385" parent="307" name="velo_id">
+    <index id="388" parent="307" name="velo_id">
       <ColNames>velo_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="386" parent="307" name="PRIMARY">
+    <key id="389" parent="307" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="387" parent="308" name="id_station">
+    <column id="390" parent="308" name="id_station">
       <AutoIncrement>5</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="388" parent="308" name="nom_station">
+    <column id="391" parent="308" name="nom_station">
       <DasType>varchar(50)|0s</DasType>
       <Position>2</Position>
     </column>
-    <column id="389" parent="308" name="altitude">
+    <column id="392" parent="308" name="altitude">
       <DasType>int|0s</DasType>
       <Position>3</Position>
     </column>
-    <index id="390" parent="308" name="PRIMARY">
+    <index id="393" parent="308" name="PRIMARY">
       <ColNames>id_station</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="391" parent="308" name="PRIMARY">
+    <key id="394" parent="308" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="392" parent="309" name="id_station">
+    <column id="395" parent="309" name="id_station">
       <AutoIncrement>6</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="393" parent="309" name="nom_station">
+    <column id="396" parent="309" name="nom_station">
       <DasType>varchar(50)|0s</DasType>
       <Position>2</Position>
     </column>
-    <column id="394" parent="309" name="altitude">
+    <column id="397" parent="309" name="altitude">
       <DasType>int|0s</DasType>
       <Position>3</Position>
     </column>
-    <index id="395" parent="309" name="PRIMARY">
+    <index id="398" parent="309" name="PRIMARY">
       <ColNames>id_station</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="396" parent="309" name="PRIMARY">
+    <key id="399" parent="309" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="397" parent="310" name="id_taille">
+    <column id="400" parent="310" name="id_taille">
       <AutoIncrement>6</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="398" parent="310" name="libelle_taille">
+    <column id="401" parent="310" name="libelle_taille">
       <DasType>varchar(255)|0s</DasType>
       <Position>2</Position>
     </column>
-    <index id="399" parent="310" name="PRIMARY">
+    <index id="402" parent="310" name="PRIMARY">
       <ColNames>id_taille</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="400" parent="310" name="PRIMARY">
+    <key id="403" parent="310" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="401" parent="311" name="id_type_velo">
+    <column id="404" parent="311" name="id_type_velo">
       <AutoIncrement>10</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="402" parent="311" name="libelle_type_velo">
+    <column id="405" parent="311" name="libelle_type_velo">
       <DasType>varchar(255)|0s</DasType>
       <Position>2</Position>
     </column>
-    <index id="403" parent="311" name="PRIMARY">
+    <index id="406" parent="311" name="PRIMARY">
       <ColNames>id_type_velo</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="404" parent="311" name="PRIMARY">
+    <key id="407" parent="311" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="405" parent="312" name="id_utilisateur">
+    <column id="408" parent="312" name="id_utilisateur">
       <AutoIncrement>4</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="406" parent="312" name="login">
+    <column id="409" parent="312" name="login">
       <DasType>varchar(255)|0s</DasType>
       <Position>2</Position>
     </column>
-    <column id="407" parent="312" name="email">
+    <column id="410" parent="312" name="email">
       <DasType>varchar(255)|0s</DasType>
       <Position>3</Position>
     </column>
-    <column id="408" parent="312" name="password">
+    <column id="411" parent="312" name="password">
       <DasType>varchar(255)|0s</DasType>
       <Position>4</Position>
     </column>
-    <column id="409" parent="312" name="role">
+    <column id="412" parent="312" name="role">
       <DasType>varchar(255)|0s</DasType>
       <Position>5</Position>
     </column>
-    <column id="410" parent="312" name="nom">
+    <column id="413" parent="312" name="nom">
       <DasType>varchar(255)|0s</DasType>
       <Position>6</Position>
     </column>
-    <index id="411" parent="312" name="PRIMARY">
+    <index id="414" parent="312" name="PRIMARY">
       <ColNames>id_utilisateur</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="412" parent="312" name="PRIMARY">
+    <key id="415" parent="312" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="413" parent="313" name="id_velo">
+    <column id="416" parent="313" name="id_velo">
       <AutoIncrement>22</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="414" parent="313" name="nom_velo">
+    <column id="417" parent="313" name="nom_velo">
       <DasType>varchar(255)|0s</DasType>
       <Position>2</Position>
     </column>
-    <column id="415" parent="313" name="prix_velo">
+    <column id="418" parent="313" name="prix_velo">
       <DasType>decimal(10,2 digit)|0s</DasType>
       <Position>3</Position>
     </column>
-    <column id="416" parent="313" name="taille_id">
+    <column id="419" parent="313" name="taille_id">
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="417" parent="313" name="type_velo_id">
+    <column id="420" parent="313" name="type_velo_id">
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <column id="418" parent="313" name="matiere">
+    <column id="421" parent="313" name="matiere">
       <DasType>varchar(255)|0s</DasType>
       <Position>6</Position>
     </column>
-    <column id="419" parent="313" name="description">
+    <column id="422" parent="313" name="description">
       <DasType>varchar(4500)|0s</DasType>
       <Position>7</Position>
     </column>
-    <column id="420" parent="313" name="fournisseur">
+    <column id="423" parent="313" name="fournisseur">
       <DasType>varchar(255)|0s</DasType>
       <Position>8</Position>
     </column>
-    <column id="421" parent="313" name="marque">
+    <column id="424" parent="313" name="marque">
       <DasType>varchar(255)|0s</DasType>
       <Position>9</Position>
     </column>
-    <column id="422" parent="313" name="image">
+    <column id="425" parent="313" name="image">
       <DasType>varchar(255)|0s</DasType>
       <Position>10</Position>
     </column>
-    <foreign-key id="423" parent="313" name="velo_ibfk_1">
+    <foreign-key id="426" parent="313" name="velo_ibfk_1">
       <ColNames>taille_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>id_taille</RefColNames>
       <RefTableName>taille</RefTableName>
     </foreign-key>
-    <foreign-key id="424" parent="313" name="velo_ibfk_2">
+    <foreign-key id="427" parent="313" name="velo_ibfk_2">
       <ColNames>type_velo_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>id_type_velo</RefColNames>
       <RefTableName>type_velo</RefTableName>
     </foreign-key>
-    <index id="425" parent="313" name="PRIMARY">
+    <index id="428" parent="313" name="PRIMARY">
       <ColNames>id_velo</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="426" parent="313" name="taille_id">
+    <index id="429" parent="313" name="taille_id">
       <ColNames>taille_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="427" parent="313" name="type_velo_id">
+    <index id="430" parent="313" name="type_velo_id">
       <ColNames>type_velo_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="428" parent="313" name="PRIMARY">
+    <key id="431" parent="313" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>

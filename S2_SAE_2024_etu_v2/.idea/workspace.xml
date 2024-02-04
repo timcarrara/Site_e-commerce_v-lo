@@ -5,15 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5feb3e19-d4cb-422f-979a-ebcfe5244081" name="Changes" comment="Nouveau">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/9ce4aa64-5abc-4ed0-93c9-e137d557c4e1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/9ce4aa64-5abc-4ed0-93c9-e137d557c4e1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/connexion_db.py" beforeDir="false" afterPath="$PROJECT_DIR$/connexion_db.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/client_commande.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/client_commande.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/client_coordonnee.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/client_coordonnee.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sae_sql.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sae_sql.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/client/coordonnee/edit_adresse.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/client/coordonnee/edit_adresse.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/client/coordonnee/show_coordonnee.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/client/coordonnee/show_coordonnee.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +29,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
   </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
@@ -175,6 +172,9 @@
       <workItem from="1706779370772" duration="1885000" />
       <workItem from="1706790968141" duration="336000" />
       <workItem from="1706857775099" duration="11142000" />
+      <workItem from="1706879133971" duration="521000" />
+      <workItem from="1706957460179" duration="5049000" />
+      <workItem from="1707040945621" duration="2972000" />
     </task>
     <task id="LOCAL-00001" summary="Nouveau">
       <option name="closed" value="true" />
@@ -184,7 +184,31 @@
       <option name="project" value="LOCAL" />
       <updated>1706791132726</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Nouveau">
+      <option name="closed" value="true" />
+      <created>1706879185439</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1706879185439</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Nouveau">
+      <option name="closed" value="true" />
+      <created>1706879236156</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1706879236156</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Nouveau">
+      <option name="closed" value="true" />
+      <created>1706879402654</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1706879402654</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -195,7 +219,7 @@
     <option name="LAST_COMMIT_MESSAGE" value="Nouveau" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/S2_SAE_2024_etu_v2$S2_SAE_2024_etu_v2.coverage" NAME="S2_SAE_2024_etu_v2 Coverage Results" MODIFIED="1706876740340" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/S2_SAE_2024_etu_v2$S2_SAE_2024_etu_v2.coverage" NAME="S2_SAE_2024_etu_v2 Coverage Results" MODIFIED="1707042968026" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/S2_SAE_2024_etu_v2$fixtures_load.coverage" NAME="fixtures_load Coverage Results" MODIFIED="1706446259511" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/controllers" />
     <SUITE FILE_PATH="coverage/S2_SAE_2024_etu_v2$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1706255329396" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>

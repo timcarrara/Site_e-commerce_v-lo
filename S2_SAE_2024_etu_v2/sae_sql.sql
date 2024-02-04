@@ -1,12 +1,12 @@
 DROP TABLE IF EXISTS ligne_panier;
 DROP TABLE IF EXISTS ligne_commande;
 DROP TABLE IF EXISTS commande;
+DROP TABLE IF EXISTS adresse;
 DROP TABLE IF EXISTS utilisateur;
 DROP TABLE IF EXISTS etat;
 DROP TABLE IF EXISTS velo;
 DROP TABLE IF EXISTS taille;
 DROP TABLE IF EXISTS type_velo;
-DROP TABLE IF EXISTS adresse;
 
 CREATE TABLE taille (
     id_taille INT AUTO_INCREMENT,
@@ -88,7 +88,8 @@ CREATE TABLE adresse (
     rue VARCHAR(255),
     code_postal INT,
     ville VARCHAR(50),
-    PRIMARY KEY (id_adresse)
+    valide INT,
+    PRIMARY KEY (id_adresse),
 );
 
 INSERT INTO taille (libelle_taille) VALUES
