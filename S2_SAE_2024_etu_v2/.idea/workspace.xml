@@ -5,11 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5feb3e19-d4cb-422f-979a-ebcfe5244081" name="Changes" comment="Nouveau">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/9ce4aa64-5abc-4ed0-93c9-e137d557c4e1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/9ce4aa64-5abc-4ed0-93c9-e137d557c4e1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/client_coordonnee.py" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/client_coordonnee.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sae_sql.sql" beforeDir="false" afterPath="$PROJECT_DIR$/sae_sql.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../S2_SAE_2024_etu_v2.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/auth/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/auth/layout.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Site_e-commerce_velo" beforeDir="false" afterPath="$PROJECT_DIR$/../Site_e-commerce_velo" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,7 +130,7 @@
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
@@ -174,7 +173,7 @@
       <workItem from="1706857775099" duration="11142000" />
       <workItem from="1706879133971" duration="521000" />
       <workItem from="1706957460179" duration="5049000" />
-      <workItem from="1707040945621" duration="2972000" />
+      <workItem from="1707040945621" duration="3863000" />
     </task>
     <task id="LOCAL-00001" summary="Nouveau">
       <option name="closed" value="true" />
@@ -208,7 +207,15 @@
       <option name="project" value="LOCAL" />
       <updated>1706879402654</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Nouveau">
+      <option name="closed" value="true" />
+      <created>1707047781081</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1707047781081</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
