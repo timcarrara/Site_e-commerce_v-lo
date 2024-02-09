@@ -17,14 +17,9 @@ def client_coordonnee_show():
             WHERE id_utilisateur=%s'''
     mycursor.execute(sql, (id_client,))
     utilisateur = mycursor.fetchone()
-    sql = '''SELECT * FROM adresse '''
-    mycursor.execute(sql)
+    sql = '''SELECT * FROM adresse WHERE utilisateur_id=%s'''
+    mycursor.execute(sql, (id_client,))
     adresses = mycursor.fetchall()
-    print(id_client)
-    if adresses:
-        print(adresses)
-    else:
-        print("Aucune adresse trouvée pour l'utilisateur.")
     sql = '''SELECT COUNT(id_adresse) FROM adresse'''
     mycursor.execute(sql)
     nb_adresses = mycursor.fetchone()
@@ -95,6 +90,7 @@ def client_coordonnee_add_adresse_valide():
     sql = '''INSERT INTO adresse (utilisateur_id, nom_client, rue, code_postal, ville, valide) VALUES (%s, %s, %s, %s, %s, 1)'''
     mycursor.execute(sql, tuple_insert)
     get_db().commit()
+    print(tuple_insert)
     return redirect('/client/coordonnee/show')
 
 @client_coordonnee.route('/client/coordonnee/edit_adresse')
@@ -104,7 +100,7 @@ def client_coordonnee_edit_adresse():
     id_adresse = request.args.get('id_adresse')
     sql = '''SELECT * FROM adresse
           WHERE id_adresse=%s'''
-    mycursor.execute(sql,(id_adresse,))
+    mycursor.execute(sql, (id_adresse,))
     adresse = mycursor.fetchone()
     sql = '''SELECT * FROM utilisateur
           WHERE id_utilisateur=%s'''
@@ -122,8 +118,8 @@ def client_coordonnee_edit_adresse_valide():
     code_postal = request.form.get('code_postal')
     ville = request.form.get('ville')
     id_adresse = request.form.get('id_adresse')
-    tuple_update = (nom, rue, code_postal, ville, id_adresse)
-    sql = "UPDATE adresse SET nom_client = %s, rue = %s, code_postal = %s, ville = %s WHERE id_adresse = %s;"
+    tuple_update = (id_client, nom, rue, code_postal, ville, id_adresse)
+    sql = "UPDATE adresse SET adresse.utilisateur_id=%s, nom_client = %s, rue = %s, code_postal = %s, ville = %s WHERE id_adresse = %s;"
     mycursor.execute(sql, tuple_update)
     get_db().commit()
     return redirect('/client/coordonnee/show')
