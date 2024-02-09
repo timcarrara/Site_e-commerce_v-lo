@@ -38,7 +38,7 @@
                                 <div class="row">
 {# #}                                {% if  velo.stock is defined and velo.stock != None %}
 {# #}                                    {% if velo.stock > 0 %}
-                                        <form  action="/client/panier/add"  method="post" class="col-5">
+                                        <form action="/client/panier/add"  method="post" class="col-5">
                                             <input type="hidden" name="id_velo" value="{{ velo.id_velo }}">
                                             <div class="input-group">
                                             <button class="btn  btn-success"  id="button-addon1">

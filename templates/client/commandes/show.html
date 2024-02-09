@@ -15,12 +15,12 @@
                                     <span style="color:rgba(255,197,197,0.6);"> ( {{ ligne.nb_declinaisons }} declinaisons )</span>
                                     <span style="color:#6dcea2">
                                     {% if ligne.couleur_id != 1 %}
-                                        {{ ligne.libelle_couleur }} 
+                                        {{ ligne.libelle_couleur }}
                                     {% endif %}
                                     </span>
                                     <span  style="color:#d941c2">
                                     {% if ligne.taille_id != 1 %}
-                                        {{ ligne.libelle_taille }} 
+                                        {{ ligne.libelle_taille }}
                                     {% endif %}
                                     </span>
                                 {% endif %}
@@ -56,7 +56,7 @@
                         <thead>
                         <tr>
                             <th>Date de commande</th>
-                            <th>Nombre de velos</th>
+                            <th>Nombre de vélo</th>
                             <th>Coût total</th>
                             <th>Etat de la commande</th>
                             <th style="text-align: center;">Options</th>
@@ -88,9 +88,7 @@
                         </tbody>
                     </table>
                 </div>
-            </div> <!-- end card-body-->
-
+            </div>
         </div>
     </div>
-
 {% endblock %}

@@ -5,17 +5,43 @@ from flask import request, render_template, redirect, abort, flash, session
 
 from connexion_db import get_db
 
-client_panier = Blueprint('client_panier', __name__,
-                        template_folder='templates')
+client_panier = Blueprint('client_panier', __name__, template_folder='templates')
 
 
 @client_panier.route('/client/panier/add', methods=['POST'])
 def client_panier_add():
     mycursor = get_db().cursor()
-    id_client = session['id_user']
-    id_velo = request.form.get('id_velo')
-    quantite = request.form.get('quantite')
-    # ---------
+    utilisateur_id = session['id_user']
+    velo_id = request.form.get('id_velo')
+    quantite_panier = request.form.get('quantite')
+
+    tuple_param1 = (velo_id, utilisateur_id)
+    sql = '''SELECT quantite_panier FROM ligne_panier WHERE velo_id = %s AND utilisateur_id = %s'''
+    mycursor.execute(sql, tuple_param1)
+    veloPresent = mycursor.fetchone()
+    get_db().commit()
+
+
+
+    if veloPresent is None:
+        tuple_param2 = (utilisateur_id, velo_id, quantite_panier)
+        sql = '''INSERT INTO ligne_panier (utilisateur_id, velo_id, date_ajout, quantite_panier)
+                VALUES (%s, %s, NOW(), %s);'''
+        mycursor.execute(sql, tuple_param2)
+        get_db().commit()
+        print("if")
+    else:
+        tuple_param3 = (quantite_panier, velo_id, utilisateur_id)
+        sql = '''UPDATE ligne_panier SET quantite_panier = quantite_panier + %s
+                 WHERE velo_id = %s AND utilisateur_id = %s;'''
+        mycursor.execute(sql, tuple_param3)
+        get_db().commit()
+        print("else")
+
+
+
+
+
     #id_declinaison_velo=request.form.get('id_declinaison_velo',None)
     id_declinaison_velo = 1
 

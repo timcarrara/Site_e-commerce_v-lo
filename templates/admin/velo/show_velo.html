@@ -21,18 +21,22 @@ velos (tableau de dictionnaires)
 <table class="table">
     <thead class="thead-dark">
         <tr>
-            <th>nom</th><th>id</th><th>type velo (id)</th><th>prix</th><th style="color: green">stock</th>
-            <th>nouveaux avis</th><th>nb déclinaisons</th><th>image</th><th>opération</th>
+            <th>nom</th><th>id</th><th>type velo (id)</th><th>prix</th><th>taille</th><th>matiere</th><th>marque</th>
+            <th>fournisseur</th><th style="color: green">stock</th><th>nouveaux avis</th><th>nb déclinaisons</th><th>image</th><th>opération</th>
         </tr>
     </thead>
     <tbody>
     {% if velos | length >= 1 %}
         {% for ligne in velos %}
            <tr>
-                  <td>{{ ligne.nom }}</td>
+                  <td>{{ ligne.nom_velo }}</td>
                   <td>{{ ligne.id_velo }}</td>
-                  <td><span style="color: red">{{ ligne.libelle }}</span> ({{ ligne.type_velo_id }})</td>
-                  <td>{#{ ligne.prix }#}  {{  "{:,.2f} €".format(ligne.prix) }}</td>
+                  <td><span style="color: red">{{ ligne.libelle_type_velo }}</span> ({{ ligne.type_velo_id }})</td>
+                  <td>{{  "{:,.2f} €".format(ligne.prix_velo) }}</td>
+                  <td>{{ ligne.libelle_taille }}</td>
+                  <td>{{ ligne.matiere }}</td>
+                  <td>{{ ligne.marque }}</td>
+                  <td>{{ ligne.fournisseur }}</td>
                   <td>
                   {% if ligne.stock is defined %}
                      {% if ligne.stock != None  %}
