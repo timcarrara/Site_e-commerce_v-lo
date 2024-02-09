@@ -80,11 +80,12 @@ def client_panier_delete():
     velo_panier = mycursor.fetchone()
 
     if not (velo_panier is None) and velo_panier['quantite'] > 1:
-        sql = '''UPDATE ligne_panier SET quantite_panier = quantite_panier - %s'''
-        mycursor.execute(sql, quantite)
+        tuple_update = (id_velo, id_client)
+        sql = '''UPDATE ligne_panier SET quantite_panier = quantite_panier - 1 WHERE velo_id=%s AND utilisateur_id=%s'''
+        mycursor.execute(sql, tuple_update)
     else:
-        sql = '''DELETE FROM ligne_panier WHERE velo_id=%s'''
-        mycursor.execute(sql, (id_velo, ))
+        sql = '''DELETE FROM ligne_panier WHERE velo_id=%s AND utilisateur_id=%s'''
+        mycursor.execute(sql, (id_velo, id_client))
     # mise à jour du stock de l'velo disponible
     get_db().commit()
     return redirect('/client/velo/show')
