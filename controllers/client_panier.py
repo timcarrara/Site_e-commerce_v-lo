@@ -7,7 +7,6 @@ from connexion_db import get_db
 
 client_panier = Blueprint('client_panier', __name__, template_folder='templates')
 
-
 @client_panier.route('/client/panier/add', methods=['POST'])
 def client_panier_add():
     mycursor = get_db().cursor()
@@ -21,12 +20,10 @@ def client_panier_add():
     veloPresent = mycursor.fetchone()
     get_db().commit()
 
-
-
     if veloPresent is None:
         tuple_param2 = (utilisateur_id, velo_id, quantite_panier)
-        sql = '''INSERT INTO ligne_panier (utilisateur_id, velo_id, date_ajout, quantite_panier)
-                VALUES (%s, %s, NOW(), %s);'''
+        sql = '''INSERT INTO ligne_panier (utilisateur_id, velo_id, date_ajout, quantite_panier) 
+                 VALUES (%s, %s, NOW(), %s);'''
         mycursor.execute(sql, tuple_param2)
         get_db().commit()
         print("if")
@@ -71,21 +68,23 @@ def client_panier_add():
 def client_panier_delete():
     mycursor = get_db().cursor()
     id_client = session['id_user']
-    id_velo = request.form.get('id_velo','')
+    id_velo = request.form.get('id_velo', '')
     quantite = 1
 
     # ---------
     # partie 2 : on supprime une déclinaison de l'velo
     # id_declinaison_velo = request.form.get('id_declinaison_velo', None)
 
-    sql = ''' selection de la ligne du panier pour le velo et l'utilisateur connecté'''
-    velo_panier=[]
+    sql = '''SELECT * FROM ligne_panier WHERE velo_id=%s AND utilisateur_id=%s;'''
+    mycursor.execute(sql, (id_velo, id_client))
+    velo_panier = mycursor.fetchone()
 
-    if not(velo_panier is None) and velo_panier['quantite'] > 1:
-        sql = ''' mise à jour de la quantité dans le panier => -1 velo '''
+    if not (velo_panier is None) and velo_panier['quantite'] > 1:
+        sql = '''UPDATE ligne_panier SET quantite_panier = quantite_panier - %s'''
+        mycursor.execute(sql, quantite)
     else:
-        sql = ''' suppression de la ligne de panier'''
-
+        sql = '''DELETE FROM ligne_panier WHERE velo_id=%s'''
+        mycursor.execute(sql, (id_velo, ))
     # mise à jour du stock de l'velo disponible
     get_db().commit()
     return redirect('/client/velo/show')

@@ -73,7 +73,7 @@ def client_coordonnee_add_adresse():
     mycursor = get_db().cursor()
     id_client = session['id_user']
     sql = '''SELECT * FROM utilisateur
-            WHERE id_utilisateur = %s'''
+             WHERE id_utilisateur = %s'''
     mycursor.execute(sql, (id_client,))
     utilisateur = mycursor.fetchone()
     return render_template('client/coordonnee/add_adresse.html', utilisateur=utilisateur)
@@ -99,11 +99,11 @@ def client_coordonnee_edit_adresse():
     id_client = session['id_user']
     id_adresse = request.args.get('id_adresse')
     sql = '''SELECT * FROM adresse
-          WHERE id_adresse=%s'''
+             WHERE id_adresse=%s'''
     mycursor.execute(sql, (id_adresse,))
     adresse = mycursor.fetchone()
     sql = '''SELECT * FROM utilisateur
-          WHERE id_utilisateur=%s'''
+             WHERE id_utilisateur=%s'''
     mycursor.execute(sql, (id_client,))
     utilisateur = mycursor.fetchone()
     return render_template('/client/coordonnee/edit_adresse.html', adresse=adresse, utilisateur=utilisateur)
