@@ -13,15 +13,23 @@ client_coordonnee = Blueprint('client_coordonnee', __name__,
 def client_coordonnee_show():
     mycursor = get_db().cursor()
     id_client = session['id_user']
-    sql = '''SELECT login, nom, email FROM utilisateur
+    sql = '''SELECT nom, login, email FROM utilisateur
             WHERE id_utilisateur=%s'''
-    mycursor.execute(sql,(id_client,))
+    mycursor.execute(sql, (id_client,))
     utilisateur = mycursor.fetchone()
     sql = '''SELECT * FROM adresse '''
     mycursor.execute(sql)
     adresses = mycursor.fetchall()
-    return render_template('client/coordonnee/show_coordonnee.html', utilisateur=utilisateur, adresses=adresses)
-                         #  , nb_adresses=nb_adresses
+    print(id_client)
+    if adresses:
+        print(adresses)
+    else:
+        print("Aucune adresse trouvée pour l'utilisateur.")
+    sql = '''SELECT COUNT(id_adresse) FROM adresse'''
+    mycursor.execute(sql)
+    nb_adresses = mycursor.fetchone()
+    print(nb_adresses)
+    return render_template('client/coordonnee/show_coordonnee.html', utilisateur=utilisateur, adresses=adresses, nb_adresses=nb_adresses)
 
 
 @client_coordonnee.route('/client/coordonnee/edit', methods=['GET'])
@@ -60,7 +68,6 @@ def client_coordonnee_delete_adresse():
     mycursor = get_db().cursor()
     id_client = session['id_user']
     id_adresse= request.form.get('id_adresse')
-    get_db().commit()
     sql = "DELETE FROM adresse WHERE id_adresse=%s"
     mycursor.execute(sql, (id_adresse, ))
     get_db().commit()
@@ -84,8 +91,8 @@ def client_coordonnee_add_adresse_valide():
     rue = request.form.get('rue')
     code_postal = request.form.get('code_postal')
     ville = request.form.get('ville')
-    tuple_insert = (nom, rue, code_postal, ville)
-    sql = '''INSERT INTO adresse (id_adresse, nom_client, rue, code_postal, ville) VALUES (NULL, %s, %s, %s, %s)'''
+    tuple_insert = (id_client, nom, rue, code_postal, ville)
+    sql = '''INSERT INTO adresse (utilisateur_id, nom_client, rue, code_postal, ville, valide) VALUES (%s, %s, %s, %s, %s, 1)'''
     mycursor.execute(sql, tuple_insert)
     get_db().commit()
     return redirect('/client/coordonnee/show')

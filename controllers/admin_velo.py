@@ -17,8 +17,9 @@ admin_velo = Blueprint('admin_velo', __name__,
 @admin_velo.route('/admin/velo/show')
 def show_velo():
     mycursor = get_db().cursor()
-    sql = '''  requête admin_velo_1
-    '''
+    sql = '''SELECT * FROM velo
+            LEFT JOIN type_velo ON velo.type_velo_id = type_velo.id_type_velo
+            LEFT JOIN taille ON velo.taille_id = taille.id_taille'''
     mycursor.execute(sql)
     velos = mycursor.fetchall()
     return render_template('admin/velo/show_velo.html', velos=velos)
@@ -27,12 +28,17 @@ def show_velo():
 @admin_velo.route('/admin/velo/add', methods=['GET'])
 def add_velo():
     mycursor = get_db().cursor()
-
-    return render_template('admin/velo/add_velo.html'
-                           #,types_velo=type_velo,
+    sql = "SELECT * FROM velo"
+    mycursor.execute(sql)
+    sql = "SELECT id_type_velo, libelle_type_velo FROM type_velo"
+    mycursor.execute(sql)
+    type_velo = mycursor.fetchall()
+    sql = "SELECT id_taille, libelle_taille FROM taille"
+    mycursor.execute(sql)
+    tailles = mycursor.fetchall()
+    return render_template('admin/velo/add_velo.html', types_velo=type_velo, tailles=tailles)
                            #,couleurs=colors
-                           #,tailles=tailles
-                            )
+
 
 
 @admin_velo.route('/admin/velo/add', methods=['POST'])
@@ -42,7 +48,11 @@ def valid_add_velo():
     nom = request.form.get('nom', '')
     type_velo_id = request.form.get('type_velo_id', '')
     prix = request.form.get('prix', '')
+    taille_id = request.form.get('taille_id', '')
+    matiere = request.form.get('matiere', '')
     description = request.form.get('description', '')
+    marque = request.form.get('marque', '')
+    fournisseur = request.form.get('fournisseur', '')
     image = request.files.get('image', '')
 
     if image:
@@ -52,9 +62,9 @@ def valid_add_velo():
         print("erreur")
         filename=None
 
-    sql = '''  requête admin_velo_2 '''
+    sql = '''INSERT INTO velo (id_velo, nom_velo, prix_velo, taille_id, type_velo_id, matiere, description, fournisseur, marque, image) VALUES (NULL, %s, %s, %s, %s, %s, %s, %s, %s, %s)'''
 
-    tuple_add = (nom, filename, prix, type_velo_id, description)
+    tuple_add = (nom, prix, taille_id, type_velo_id, matiere, description, marque, fournisseur, filename,)
     print(tuple_add)
     mycursor.execute(sql, tuple_add)
     get_db().commit()
@@ -75,16 +85,16 @@ def delete_velo():
     mycursor.execute(sql, id_velo)
     nb_declinaison = mycursor.fetchone()
     if nb_declinaison['nb_declinaison'] > 0:
-        message= u'il y a des declinaisons dans cet velo : vous ne pouvez pas le supprimer'
+        message= u'il y a des declinaisons dans ce velo : vous ne pouvez pas le supprimer'
         flash(message, 'alert-warning')
     else:
-        sql = ''' requête admin_velo_4 '''
+        sql = '''  '''
         mycursor.execute(sql, id_velo)
         velo = mycursor.fetchone()
         print(velo)
         image = velo['image']
 
-        sql = ''' requête admin_velo_5  '''
+        sql = '''  '''
         mycursor.execute(sql, id_velo)
         get_db().commit()
         if image != None:

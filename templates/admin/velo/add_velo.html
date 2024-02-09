@@ -13,24 +13,49 @@
                 <label for="nom">Nom :
                     <input name="nom" type="text" value=""  class="form-control" required>
                 </label>
+
                 <label for="prix">Prix (€) :
                     <input name="prix" type="number" min="0.0" step="0.01" max="2147483647" value=""  class="form-control" required>
                 </label>
-                <label for="image"> Image :
-                    <input name="image" type="file" onchange="loadFile(event)"   class="form-control">
+
+                <label for="taille_id">Taille du velo :
+                    <select name="taille_id" required class="form-select">
+                        <option value="">Sélectionner une taille de velo</option>
+                        {% for tailleVelo in tailles %}
+                             <option value="{{ tailleVelo.id_taille }}"> {{ tailleVelo.libelle_taille }}</option>
+                        {% endfor %}
+                    </select>
                 </label>
 
                 <label for="type_velo_id">Type du velo :
                     <select name="type_velo_id" required class="form-select">
                         <option value="">Sélectionner un type de velo</option>
                         {% for type in types_velo %}
-                             <option value="{{ type.id_type_velo }}"> {{ type.libelle }}</option>
+                             <option value="{{ type.id_type_velo }}"> {{ type.libelle_type_velo }}</option>
                         {% endfor %}
                     </select>
                 </label>
+
+                <label for="matiere">Matière :
+                    <input name="matiere" type="text" value=""  class="form-control" required>
+                </label>
+
                 <label for="description">description :
                     <input name="description" type="text" class="form-control" >
                 </label>
+
+                <label for="fournisseur">Fournisseur :
+                    <input name="fournisseur" type="text" value=""  class="form-control" required>
+                </label>
+
+                <label for="marque">Marque :
+                    <input name="marque" type="text" value=""  class="form-control" required>
+                </label>
+
+                <label for="image"> Image :
+                    <input name="image" type="file" onchange="loadFile(event)"   class="form-control">
+                </label>
+
                 <label for="submit">
                     <input name="submit" type="submit" value="Ajouter" class="btn btn-primary mt-2">
                 </label>

@@ -25,7 +25,7 @@ def client_commande_valide():
     return render_template('client/boutique/panier_validation_adresses.html'
                            #, adresses=adresses
                            , velos_panier=velos_panier
-                           , prix_total= prix_total
+                           , prix_total=prix_total
                            , validation=1
                            #, id_adresse_fav=id_adresse_fav
                            )
@@ -60,29 +60,62 @@ def client_commande_add():
 
 
 
+# @client_commande.route('/client/commande/show', methods=['get','post'])
+# def client_commande_show():
+#     mycursor = get_db().cursor()
+#     id_client = session['id_user']
+#     sql = '''  selection des commandes ordonnées par état puis par date d'achat descendant '''
+#     commandes = []
 
-@client_commande.route('/client/commande/show', methods=['get','post'])
+#     articles_commande = None
+#     commande_adresses = None
+#     id_commande = request.args.get('id_commande', None)
+#     if id_commande != None:
+#         print(id_commande)
+#         sql = ''' selection du détails d'une commande '''
+
+#         # partie 2 : selection de l'adresse de livraison et de facturation de la commande selectionnée
+#         sql = ''' selection des adressses '''
+
+#     return render_template('client/commandes/show.html', commandes=commandes
+#                            , articles_commande=articles_commande
+#                            , commande_adresses=commande_adresses)
+
+@client_commande.route('/client/commande/show', methods=['get', 'post'])
 def client_commande_show():
     mycursor = get_db().cursor()
     id_client = session['id_user']
-    sql = ''' SELECT * FROM commande
-              ORDER BY etat_id AND commande.date_achat DESC'''
-    mycursor.execute(sql)
-    commandes = []
+    tuple_param = (id_client, )
+    sql = '''
+        SELECT c.id_commande, c.date_achat, c.utilisateur_id, c.etat_id , etat.libelle_etat AS libelle
+        , ligne_commande.quantite_commande AS nbr_velos
+        , SUM(ligne_commande.quantite_commande * ligne_commande.prix) AS prix_total
+        FROM commande c
+        LEFT JOIN etat ON c.etat_id = etat.id_etat
+        LEFT JOIN ligne_commande ON c.id_commande = ligne_commande.commande_id
+        LEFT JOIN velo ON ligne_commande.velo_id = velo.id_velo
+        LEFT JOIN utilisateur ON c.utilisateur_id = utilisateur.id_utilisateur
+        WHERE c.utilisateur_id = %s
+        GROUP BY id_commande, date_achat, etat_id, quantite_commande;
+    '''
 
-    velos_commande = None
+    mycursor.execute(sql, tuple_param)
+    commandes = mycursor.fetchall()
+
+
+
+    articles_commande = None
     commande_adresses = None
     id_commande = request.args.get('id_commande', None)
-    if id_commande != None:
-        print(id_commande)
-        sql = ''' SELECT * FROM ligne_commande '''
-        mycursor.execute(sql)
+    #if id_commande != None:
+        #print(id_commande)
+        #sql = ''' selection du détails d'une commande '''
+        #articles_commande=mycursor.fetchall()
 
-        # partie 2 : selection de l'adresse de livraison et de facturation de la commande selectionnée
-        sql = ''' selection des adressses '''
+        #partie 2 : selection de l'adresse de livraison et de facturation de la commande selectionnée
+        #sql = ''' selection des adressses '''
+        #commande_adresses=mycursor.fetchall()
 
     return render_template('client/commandes/show.html', commandes=commandes
-                           , velos_commande=velos_commande
-                           , commande_adresses=commande_adresses
-                           )
-
+                           , articles_commande=articles_commande
+                           , commande_adresses=commande_adresses)
