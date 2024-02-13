@@ -11,29 +11,36 @@ client_panier = Blueprint('client_panier', __name__, template_folder='templates'
 def client_panier_add():
     mycursor = get_db().cursor()
     utilisateur_id = session['id_user']
-    velo_id = request.form.get('id_velo')
+    id_velo = request.form.get('id_velo')
     quantite_panier = request.form.get('quantite')
 
-    tuple_param1 = (velo_id, utilisateur_id)
-    sql = '''SELECT quantite_panier FROM ligne_panier WHERE velo_id = %s AND utilisateur_id = %s'''
-    mycursor.execute(sql, tuple_param1)
-    veloPresent = mycursor.fetchone()
-    get_db().commit()
+    sql = '''SELECT quantite_panier FROM ligne_panier 
+             WHERE velo_id = %s AND utilisateur_id = %s;'''
+    mycursor.execute(sql, (id_velo, utilisateur_id,))
+    velopresent = mycursor.fetchone()
 
-    if veloPresent is None:
-        tuple_param2 = (utilisateur_id, velo_id, quantite_panier)
-        sql = '''INSERT INTO ligne_panier (utilisateur_id, velo_id, date_ajout, quantite_panier) 
-                 VALUES (%s, %s, NOW(), %s);'''
-        mycursor.execute(sql, tuple_param2)
-        get_db().commit()
-        print("if")
+    if velopresent is None:
+        if quantite_panier == '0':
+            flash(u'la quantité doit être un numérique et supérieure à 0', 'alert-warning')
+        else:
+            sql = '''INSERT INTO ligne_panier (utilisateur_id, velo_id, date_ajout, quantite_panier) 
+                    VALUES (%s, %s, NOW(), %s);'''
+            mycursor.execute(sql, (utilisateur_id, id_velo, quantite_panier,))
+            get_db().commit()
+            print("if")
+
     else:
-        tuple_param3 = (quantite_panier, velo_id, utilisateur_id)
         sql = '''UPDATE ligne_panier SET quantite_panier = quantite_panier + %s
                  WHERE velo_id = %s AND utilisateur_id = %s;'''
-        mycursor.execute(sql, tuple_param3)
+        mycursor.execute(sql, (quantite_panier, id_velo, utilisateur_id,))
         get_db().commit()
         print("else")
+
+    sql = '''UPDATE velo SET stock = stock - %s
+             WHERE id_velo = %s;'''
+    mycursor.execute(sql, (quantite_panier, id_velo,))
+
+    get_db().commit()
 
 
 
@@ -68,42 +75,46 @@ def client_panier_add():
 def client_panier_delete():
     mycursor = get_db().cursor()
     id_client = session['id_user']
-    id_velo = request.form.get('id_velo', '')
-    quantite = 1
+    id_velo = request.form.get('id_velo')
+    quantite_panier = 1
 
     # ---------
-    # partie 2 : on supprime une déclinaison de l'velo
-    # id_declinaison_velo = request.form.get('id_declinaison_velo', None)
+    # partie 2 : on supprime une déclinaison de l'boisson
+    # id_declinaison_boisson = request.form.get('id_declinaison_boisson', None)
 
-    sql = '''SELECT * FROM ligne_panier WHERE velo_id=%s AND utilisateur_id=%s;'''
-    mycursor.execute(sql, (id_velo, id_client))
+    sql = ''' SELECT * FROM ligne_panier
+              WHERE velo_id = %s AND utilisateur_id = %s;'''
+    mycursor.execute(sql, (id_velo, id_client,))
     velo_panier = mycursor.fetchone()
 
-    if not (velo_panier is None) and velo_panier['quantite'] > 1:
-        tuple_update = (id_velo, id_client)
-        sql = '''UPDATE ligne_panier SET quantite_panier = quantite_panier - 1 WHERE velo_id=%s AND utilisateur_id=%s'''
-        mycursor.execute(sql, tuple_update)
+    if not (velo_panier is None) and velo_panier['quantite_panier'] > 1:
+        sql = '''UPDATE ligne_panier SET quantite_panier = ligne_panier.quantite_panier - 1
+                WHERE velo_id = %s AND utilisateur_id = %s;'''
+        mycursor.execute(sql, (id_velo, id_client,))
+
     else:
-        sql = '''DELETE FROM ligne_panier WHERE velo_id=%s AND utilisateur_id=%s'''
-        mycursor.execute(sql, (id_velo, id_client))
-    # mise à jour du stock de l'velo disponible
+        sql = ''' DELETE FROM ligne_panier
+                  WHERE velo_id = %s AND utilisateur_id = %s;'''
+        mycursor.execute(sql, (id_velo, id_client,))
+
+    sql = '''UPDATE velo SET stock = stock + 1
+             WHERE id_velo = %s;'''
+    mycursor.execute(sql, (id_velo, ))
     get_db().commit()
     return redirect('/client/velo/show')
-
-
-
-
 
 @client_panier.route('/client/panier/vider', methods=['POST'])
 def client_panier_vider():
     mycursor = get_db().cursor()
     client_id = session['id_user']
-    sql = ''' sélection des lignes de panier'''
-    items_panier = []
+    sql = '''SELECT * FROM ligne_panier'''
+    mycursor.execute(sql)
+    items_panier = mycursor.fetchall()
     for item in items_panier:
-        sql = ''' suppression de la ligne de panier du velo pour l'utilisateur connecté'''
-
-        sql2=''' mise à jour du stock du velo : stock = stock + qté de la ligne pour le velo'''
+        sql = '''DELETE FROM ligne_panier WHERE utilisateur_id = %s'''
+        mycursor.execute(sql, (client_id,))
+        sql2 = '''UPDATE velo SET stock = stock + 1'''
+        mycursor.execute(sql2)
         get_db().commit()
     return redirect('/client/velo/show')
 
@@ -112,16 +123,20 @@ def client_panier_vider():
 def client_panier_delete_line():
     mycursor = get_db().cursor()
     id_client = session['id_user']
-    #id_declinaison_velo = request.form.get('id_declinaison_velo')
-
-    sql = ''' selection de ligne du panier '''
-
-    sql = ''' suppression de la ligne du panier '''
-    sql2=''' mise à jour du stock du velo : stock = stock + qté de la ligne pour le velo'''
-
+    id_velo = request.form.get('id_velo')
+    sql_select = '''SELECT * FROM ligne_panier
+                    WHERE utilisateur_id = %s AND velo_id = %s'''
+    mycursor.execute(sql_select, (id_client, id_velo))
+    velo_panier = mycursor.fetchone()
+    sql_delete = '''DELETE FROM ligne_panier 
+                    WHERE utilisateur_id=%s AND velo_id=%s'''
+    mycursor.execute(sql_delete, (id_client, id_velo))
+    sql_update = '''UPDATE velo 
+                    SET stock = stock + %s
+                    WHERE id_velo = %s'''
+    mycursor.execute(sql_update, (velo_panier['quantite_panier'], id_velo))
     get_db().commit()
     return redirect('/client/velo/show')
-
 
 @client_panier.route('/client/panier/filtre', methods=['POST'])
 def client_panier_filtre():
