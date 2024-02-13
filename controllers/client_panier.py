@@ -111,10 +111,12 @@ def client_panier_vider():
     mycursor.execute(sql)
     items_panier = mycursor.fetchall()
     for item in items_panier:
+        id_velo = item['id_velo']
         sql = '''DELETE FROM ligne_panier WHERE utilisateur_id = %s'''
         mycursor.execute(sql, (client_id,))
-        sql2 = '''UPDATE velo SET stock = stock + 1'''
-        mycursor.execute(sql2)
+        sql2 = '''UPDATE velo SET stock = stock + 1
+                  WHERE id_velo =%s'''
+        mycursor.execute(sql2, (id_velo,))
         get_db().commit()
     return redirect('/client/velo/show')
 
@@ -143,14 +145,39 @@ def client_panier_filtre():
     filter_word = request.form.get('filter_word', None)
     filter_prix_min = request.form.get('filter_prix_min', None)
     filter_prix_max = request.form.get('filter_prix_max', None)
-    filter_types = request.form.getlist('filter_types', None)
-    # test des variables puis
-    # mise en session des variables
+    filter_types = request.form.get('filter_types', None)
+    print("word : " + filter_word + str(len(filter_word)))
+    if filter_word or filter_word == '':
+        if len(filter_word) > 1:
+            if filter_word.isalpha():
+                session['filter_word'] = filter_word
+            else:
+                flash(u'Votre mot doit être composé uniquement de lettres', 'alert-danger')
+        else:
+            if len(filter_word) == 1:
+                flash(u"Votre mot recherché doit être composé d'au moins deux lettres", 'alert-danger')
+            else:
+                session.pop('filter_hotel', None)
+
+    if filter_prix_min or filter_prix_max:
+        if filter_prix_min.isdecimal() and filter_prix_max.isdecimal():
+            if int(filter_prix_min) < int(filter_prix_max):
+                session['filter_prix_min'] = filter_prix_min
+                session['filter_prix_max'] = filter_prix_max
+            else:
+                flash(u'Le prix minimum doit être inférieur au prix maximum', 'alert-danger')
+        else:
+            flash(u'Les prix minimum et maximum doivent être des numériques', 'alert-danger')
+    if filter_types and filter_types != []:
+        session['filter_types'] = filter_types
     return redirect('/client/velo/show')
 
 
 @client_panier.route('/client/panier/filtre/suppr', methods=['POST'])
 def client_panier_filtre_suppr():
-    # suppression  des variables en session
+    session.pop('filter_word', None)
+    session.pop('filter_prix_min', None)
+    session.pop('filter_prix_max', None)
+    session.pop('filter_types', None)
     print("suppr filtre")
     return redirect('/client/velo/show')
