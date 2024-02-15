@@ -34,7 +34,7 @@ def admin_commande_show():
     ORDER BY etat_id, date_achat DESC  '''
     mycursor.execute(sql)
     commandes = mycursor.fetchall()
-
+#
     commande_id = request.args.get('id_commande', None)
     sql2 = '''SELECT velo.nom_velo AS nom, ligne_commande.quantite_commande AS quantite, (ligne_commande.prix * ligne_commande.quantite_commande) AS prix_ligne, ligne_commande.prix AS prix FROM velo 
               JOIN ligne_commande ON velo.id_velo = ligne_commande.velo_id
