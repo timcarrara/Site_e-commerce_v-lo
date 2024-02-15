@@ -88,15 +88,15 @@ def client_commande_show():
     velos_commande = None
     commande_adresses = None
     id_commande = request.args.get('id_commande', None)
+    id_velo = request.args.get('id_velo', None)
     if id_commande != None:
         print(id_commande)
-        sql = '''SELECT id_commande, velo.nom_velo, ligne_commande.quantite_commande, velo.prix_velo, SUM(ligne_commande.prix*ligne_commande.quantite_commande) AS prix_total
-                 FROM commande
-                 LEFT JOIN ligne_commande ON commande.id_commande = ligne_commande.commande_id
-                 LEFT JOIN velo ON ligne_commande.velo_id = velo_id
-                 WHERE id_commande = %s AND utilisateur_id = %s
-                 GROUP BY id_commande, velo.nom_velo, ligne_commande.quantite_commande, velo.prix_velo'''
-        mycursor.execute(sql, (id_commande, id_client, ))
+        sql = '''SELECT velo.nom_velo AS nom, quantite_commande AS quantite_commande, (prix * quantite_commande) AS prix_total, prix AS prix_velo
+                 FROM ligne_commande 
+                 LEFT JOIN velo ON ligne_commande.velo_id = velo.id_velo
+                 WHERE commande_id = %s
+                 '''
+        mycursor.execute(sql, (id_commande,))
         velos_commande = mycursor.fetchall()
 
         # partie 2 : selection de l'adresse de livraison et de facturation de la commande selectionnée
