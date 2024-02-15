@@ -32,7 +32,7 @@ velos (tableau de dictionnaires)
                   <td>{{ ligne.id_velo }}</td>
                   <td><span style="color: red">{{ ligne.libelle_type_velo }}</span> ({{ ligne.type_velo_id }})</td>
                   <td>{{  "{:,.2f} €".format(ligne.prix_velo) }}</td>
-                  <td>{{ ligne.libelle_taille }}</td>
+                  <td>{{ ligne.taille_id }}</td>
                   <td>{{ ligne.matiere }}</td>
                   <td>
                   {% if ligne.stock is defined %}
@@ -74,7 +74,7 @@ velos (tableau de dictionnaires)
                   </td>
                   <td>{{ ligne.image }}
                         {%  if ligne.image is not none %}
-                            <img style="width:40px;height:40px"  src="{{ url_for('static', filename = 'images/' + ligne['image']) }}"  alt="image  de {{ ligne.nom }}" >
+                            <img style="width:40px;height:40px"  src="{{ url_for('static', filename = 'images/' + ligne['image']) }}"  alt="image  de {{ ligne.nom_velo }}" >
                         {% else %}
                             <img style="width:40px;height:40px"   src="{{ url_for('static', filename='images/no_photo.jpeg')}}"  alt="pas d image" >
                         {% endif %}
