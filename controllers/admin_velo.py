@@ -17,9 +17,9 @@ admin_velo = Blueprint('admin_velo', __name__,
 @admin_velo.route('/admin/velo/show')
 def show_velo():
     mycursor = get_db().cursor()
-    sql = '''SELECT id_velo, nom_velo, prix_velo, taille_id, type_velo_id, stock, image FROM velo
-             LEFT JOIN type_velo ON velo.type_velo_id = type_velo.id_type_velo
-             LEFT JOIN taille ON velo.taille_id = taille.id_taille'''
+    sql = '''SELECT * FROM velo
+            LEFT JOIN type_velo ON velo.type_velo_id = type_velo.id_type_velo
+            LEFT JOIN taille ON velo.taille_id = taille.id_taille'''
     mycursor.execute(sql)
     velos = mycursor.fetchall()
     return render_template('admin/velo/show_velo.html', velos=velos)
@@ -39,14 +39,20 @@ def add_velo():
     return render_template('admin/velo/add_velo.html', types_velo=type_velo, tailles=tailles)
                            #,couleurs=colors
 
+
+
 @admin_velo.route('/admin/velo/add', methods=['POST'])
 def valid_add_velo():
     mycursor = get_db().cursor()
+
     nom = request.form.get('nom', '')
     type_velo_id = request.form.get('type_velo_id', '')
     prix = request.form.get('prix', '')
     taille_id = request.form.get('taille_id', '')
-    stock = request.form.get('stock', '')
+    matiere = request.form.get('matiere', '')
+    description = request.form.get('description', '')
+    marque = request.form.get('marque', '')
+    fournisseur = request.form.get('fournisseur', '')
     image = request.files.get('image', '')
 
     if image:
@@ -54,17 +60,18 @@ def valid_add_velo():
         image.save(os.path.join('static/images/', filename))
     else:
         print("erreur")
-        filename = None
+        filename=None
 
-    sql = '''INSERT INTO velo (id_velo, nom_velo, prix_velo, taille_id, type_velo_id, stock, image) VALUES (NULL, %s, %s, %s, %s, %s, %s)'''
+    sql = '''INSERT INTO velo (id_velo, nom_velo, prix_velo, taille_id, type_velo_id, matiere, description, fournisseur, marque, image) VALUES (NULL, %s, %s, %s, %s, %s, %s, %s, %s, %s)'''
 
-    tuple_add = (nom, prix, taille_id, type_velo_id, stock, filename,)
+    tuple_add = (nom, prix, taille_id, type_velo_id, matiere, description, marque, fournisseur, filename,)
     print(tuple_add)
     mycursor.execute(sql, tuple_add)
     get_db().commit()
 
-    print(u'velo ajouté , nom: ', nom, ' - type_velo:', type_velo_id, ' - prix:', prix, ' - stock:', stock, ' - image:', image)
-    message = u'velo ajouté , nom:' + nom + '- type_velo:' + type_velo_id + ' - prix:' + prix + ' - stock:', stock + ' - image:' + str(
+    print(u'velo ajouté , nom: ', nom, ' - type_velo:', type_velo_id, ' - prix:', prix,
+          ' - description:', description, ' - image:', image)
+    message = u'velo ajouté , nom:' + nom + '- type_velo:' + type_velo_id + ' - prix:' + prix + ' - description:' + description + ' - image:' + str(
         image)
     flash(message, 'alert-success')
     return redirect('/admin/velo/show')
@@ -72,14 +79,13 @@ def valid_add_velo():
 
 @admin_velo.route('/admin/velo/delete', methods=['GET'])
 def delete_velo():
-    id_velo = request.args.get('id_velo')
+    id_velo=request.args.get('id_velo')
     mycursor = get_db().cursor()
-    sql = '''DELETE FROM velo
-             WHERE id_velo = %s'''
+    sql = ''' requête admin_velo_3 '''
     mycursor.execute(sql, id_velo)
     nb_declinaison = mycursor.fetchone()
     if nb_declinaison['nb_declinaison'] > 0:
-        message = u'il y a des declinaisons dans ce velo : vous ne pouvez pas le supprimer'
+        message= u'il y a des declinaisons dans ce velo : vous ne pouvez pas le supprimer'
         flash(message, 'alert-warning')
     else:
         sql = '''  '''
@@ -106,18 +112,14 @@ def edit_velo():
     id_velo=request.args.get('id_velo')
     mycursor = get_db().cursor()
     sql = '''
-    SELECT id_velo, nom_velo AS nom, prix_velo AS prix, taille_id, type_velo_id, matiere, description, fournisseur, marque, image, stock
-    FROM velo
-    WHERE id_velo = %s;  
+    requête admin_velo_6    
     '''
     mycursor.execute(sql, id_velo)
     velo = mycursor.fetchone()
     print(velo)
-    #sql = '''
-    #requête admin_velo_7
-    #'''
-    #mycursor.execute(sql)
-    sql = ''' SELECT * FROM type_velo'''
+    sql = '''
+    requête admin_velo_7
+    '''
     mycursor.execute(sql)
     types_velo = mycursor.fetchall()
 
@@ -127,7 +129,9 @@ def edit_velo():
     # mycursor.execute(sql, id_velo)
     # declinaisons_velo = mycursor.fetchall()
 
-    return render_template('admin/velo/edit_velo.html', velo=velo, types_velo=types_velo
+    return render_template('admin/velo/edit_velo.html'
+                           ,velo=velo
+                           ,types_velo=types_velo
                          #  ,declinaisons_velo=declinaisons_velo
                            )
 
@@ -135,17 +139,14 @@ def edit_velo():
 @admin_velo.route('/admin/velo/edit', methods=['POST'])
 def valid_edit_velo():
     mycursor = get_db().cursor()
-    nom_velo = request.form.get('nom')
+    nom = request.form.get('nom')
     id_velo = request.form.get('id_velo')
     image = request.files.get('image', '')
     type_velo_id = request.form.get('type_velo_id', '')
-    prix_velo = request.form.get('prix', '')
+    prix = request.form.get('prix', '')
     description = request.form.get('description')
-    stock = request.form.get('stock', '')
-
-
     sql = '''
-       SELECT image FROM velo WHERE id_velo=%s;
+       requête admin_velo_8
        '''
     mycursor.execute(sql, id_velo)
     image_nom = mycursor.fetchone()
@@ -160,24 +161,18 @@ def valid_edit_velo():
             image.save(os.path.join('static/images/', filename))
             image_nom = filename
 
-    sql = '''  UPDATE velo
-SET nom_velo = %s, 
-    prix_velo = %s, 
-    type_velo_id = %s, 
-    description = %s, 
-    image = %s, 
-    stock = %s
-WHERE id_velo = %s;
- '''
-    mycursor.execute(sql, (nom_velo, prix_velo, type_velo_id, description, image_nom, stock, id_velo))
-    print(nom_velo, prix_velo, type_velo_id, image_nom, stock, id_velo)
-    print(stock, 5)
+    sql = '''  requête admin_velo_9 '''
+    mycursor.execute(sql, (nom, image_nom, prix, type_velo_id, description, id_velo))
+
     get_db().commit()
     if image_nom is None:
         image_nom = ''
-    message = u'velo modifié , nom:' + nom_velo + '- type_velo :' + type_velo_id + ' - stock:' + stock + ' - prix:' + prix_velo  + ' - image:' + image_nom
+    message = u'velo modifié , nom:' + nom + '- type_velo :' + type_velo_id + ' - prix:' + prix  + ' - image:' + image_nom + ' - description: ' + description
     flash(message, 'alert-success')
     return redirect('/admin/velo/show')
+
+
+
 
 
 
