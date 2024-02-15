@@ -111,7 +111,7 @@ def client_panier_vider():
     mycursor.execute(sql)
     items_panier = mycursor.fetchall()
     for item in items_panier:
-        id_velo = item['id_velo']
+        id_velo = item['velo_id']
         sql = '''DELETE FROM ligne_panier WHERE utilisateur_id = %s'''
         mycursor.execute(sql, (client_id,))
         sql2 = '''UPDATE velo SET stock = stock + 1
@@ -119,7 +119,6 @@ def client_panier_vider():
         mycursor.execute(sql2, (id_velo,))
         get_db().commit()
     return redirect('/client/velo/show')
-
 
 @client_panier.route('/client/panier/delete/line', methods=['POST'])
 def client_panier_delete_line():
