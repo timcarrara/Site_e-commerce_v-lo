@@ -121,6 +121,7 @@ def client_panier_vider():
         get_db().commit()
     return redirect('/client/velo/show')
 
+
 @client_panier.route('/client/panier/delete/line', methods=['POST'])
 def client_panier_delete_line():
     mycursor = get_db().cursor()
@@ -145,7 +146,7 @@ def client_panier_filtre():
     filter_word = request.form.get('filter_word', None)
     filter_prix_min = request.form.get('filter_prix_min', None)
     filter_prix_max = request.form.get('filter_prix_max', None)
-    filter_types = request.form.getlist('filter_types', None)
+    filter_types = request.form.getlist('filter_types')
     print("word : " + filter_word + str(len(filter_word)))
     if filter_word or filter_word == '':
         if len(filter_word) > 1:
@@ -171,6 +172,7 @@ def client_panier_filtre():
     if filter_types and filter_types != []:
         session['filter_types'] = filter_types
     return redirect('/client/velo/show')
+
 
 @client_panier.route('/client/panier/filtre/suppr', methods=['POST'])
 def client_panier_filtre_suppr():
