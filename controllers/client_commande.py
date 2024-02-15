@@ -88,7 +88,6 @@ def client_commande_show():
     velos_commande = None
     commande_adresses = None
     id_commande = request.args.get('id_commande', None)
-    id_velo = request.args.get('id_velo', None)
     if id_commande != None:
         print(id_commande)
         sql = '''SELECT velo.nom_velo AS nom, quantite_commande AS quantite_commande, (prix * quantite_commande) AS prix_total, prix AS prix_velo
