@@ -7,9 +7,9 @@ def get_db():
     if 'db' not in g:
         g.db = pymysql.connect(
             host="localhost",  # "serveurmysql" sur les machines de l'IUT
-            user="tcarrara",
-            password="230905",
-            database="BDD_tcarrara",
+            user="kstrub",
+            password="mdp",
+            database="site_e-commerce_velo",
             charset='utf8mb4',
             cursorclass=pymysql.cursors.DictCursor
         )
