@@ -39,12 +39,15 @@ types_velo : tableau de dictionnaires
                 <label for="type_velo_id">Type de l'velo :
                     <select name="type_velo_id" class="form-select">
                             {% for type in types_velo %}
-                                 <option value="{{ type.id_type_velo }}" {% if type.id_type_velo == velo.type_velo_id %} selected {% endif %}> {{ type.libelle }}</option>
+                                <option value="{{ type.id_type_velo }}"> {{ type.libelle_type_velo }}</option>
                             {% endfor %}
                         </select>
                     </label>
                     <label for="description">Description :
                         <input name="description" type="text" value="{{ velo.description }}" class="form-control">
+                    </label>
+                    <label for="stock">Stock :
+                        <input name="stock" type="number" value="{{ velo.stock }}" class="form-control">
                     </label>
                     <button class="btn btn-primary mt-2">
                                 Modifier
