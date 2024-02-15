@@ -94,7 +94,7 @@ def client_commande_show():
         sql = '''SELECT velo.nom_velo AS nom, quantite_commande AS quantite_commande, (prix * quantite_commande) AS prix_total, prix AS prix_velo
                  FROM ligne_commande 
                  LEFT JOIN velo ON ligne_commande.velo_id = velo.id_velo
-                 WHERE commande_id = %s
+                 WHERE commande_id = %
                  '''
         mycursor.execute(sql, (id_commande,))
         velos_commande = mycursor.fetchall()
