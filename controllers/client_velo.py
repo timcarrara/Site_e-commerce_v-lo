@@ -58,7 +58,7 @@ def client_velo_show():                                 # remplace client_index
     if len(velos_panier) >= 1:
         sql = '''SELECT SUM(prix*quantite_commande) FROM ligne_commande AS prix_total'''
         mycursor.execute(sql)
-        prix_total = mycursor.fetchone()
+        prix_total_panier = mycursor.fetchone()
     else:
-        prix_total = 0
-    return render_template('client/boutique/panier_velo.html', velos=velos, types_velo=types_velo, velos_panier=velos_panier, prix_total=prix_total, items_filtre=types_velo)
+        prix_total_panier = 0
+    return render_template('client/boutique/panier_velo.html', velos=velos, types_velo=types_velo, velos_panier=velos_panier, prix_total_panier=prix_total_panier, items_filtre=types_velo)
