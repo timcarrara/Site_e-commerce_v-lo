@@ -30,7 +30,7 @@ def admin_commande_show():
     commandes = mycursor.fetchall()
 #
     commande_id = request.args.get('id_commande', None)
-    sql2 = '''SELECT velo.nom_velo AS nom, quantite_commande AS quantite, (prix * quantite_commande) AS prix_ligne, prix AS prix
+    sql2 = '''SELECT velo.nom_velo AS nom, quantite_commande AS quantite, (velo.prix_velo * quantite_commande) AS prix_ligne, velo.prix_velo AS prix
               FROM ligne_commande 
               LEFT JOIN velo ON ligne_commande.velo_id = velo.id_velo
               WHERE commande_id = %s'''
@@ -48,13 +48,13 @@ def admin_commande_show():
     return render_template('admin/commandes/show.html', commandes=commandes, velos_commande=velos_commande, commande_adresses=commande_adresses)
 
 
-@admin_commande.route('/admin/commande/valider', methods=['get','post'])
+@admin_commande.route('/admin/commande/valider', methods=['get', 'post'])
 def admin_commande_valider():
     mycursor = get_db().cursor()
     commande_id = request.form.get('id_commande', None)
     if commande_id != None:
         print(commande_id)
-        sql = '''UPDATE commande SET etat_id=3 WHERE  id_commande=%s'''
+        sql = '''UPDATE commande SET etat_id=2 WHERE  id_commande=%s'''
         mycursor.execute(sql, commande_id)
         get_db().commit()
     return redirect('/admin/commande/show')
