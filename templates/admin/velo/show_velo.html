@@ -21,8 +21,7 @@ velos (tableau de dictionnaires)
 <table class="table">
     <thead class="thead-dark">
         <tr>
-            <th>nom</th><th>id</th><th>type velo (id)</th><th>prix</th><th>taille</th><th>matiere</th><th>marque</th>
-            <th>fournisseur</th><th style="color: green">stock</th><th>nouveaux avis</th><th>nb déclinaisons</th><th>image</th><th>opération</th>
+            <th>nom</th><th>id</th><th>type velo (id)</th><th>prix</th><th>taille</th><th>matiere</th><th style="color: green">stock</th><th>nouveaux avis</th><th>nb déclinaisons</th><th>image</th><th>opération</th>
         </tr>
     </thead>
     <tbody>
@@ -35,8 +34,6 @@ velos (tableau de dictionnaires)
                   <td>{{  "{:,.2f} €".format(ligne.prix_velo) }}</td>
                   <td>{{ ligne.libelle_taille }}</td>
                   <td>{{ ligne.matiere }}</td>
-                  <td>{{ ligne.marque }}</td>
-                  <td>{{ ligne.fournisseur }}</td>
                   <td>
                   {% if ligne.stock is defined %}
                      {% if ligne.stock != None  %}

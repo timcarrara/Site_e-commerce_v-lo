@@ -17,9 +17,9 @@ admin_velo = Blueprint('admin_velo', __name__,
 @admin_velo.route('/admin/velo/show')
 def show_velo():
     mycursor = get_db().cursor()
-    sql = '''SELECT * FROM velo
-            LEFT JOIN type_velo ON velo.type_velo_id = type_velo.id_type_velo
-            LEFT JOIN taille ON velo.taille_id = taille.id_taille'''
+    sql = '''SELECT nom_velo, prix_velo, taille_id, type_velo_id, matiere, stock FROM velo
+             LEFT JOIN type_velo ON velo.type_velo_id = type_velo.id_type_velo
+             LEFT JOIN taille ON velo.taille_id = taille.id_taille'''
     mycursor.execute(sql)
     velos = mycursor.fetchall()
     return render_template('admin/velo/show_velo.html', velos=velos)
