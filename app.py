@@ -38,7 +38,7 @@ def show_accueil():
 
 ##################
 # Authentification
-##################
+##################gg
 
 # Middleware de sécurité
 

@@ -111,12 +111,13 @@ def client_panier_vider():
     mycursor.execute(sql)
     items_panier = mycursor.fetchall()
     for item in items_panier:
-        id_velo = item['id_velo']
+        id_velo = item['velo_id']
+        quantite_panier = item['quantite_panier']
         sql = '''DELETE FROM ligne_panier WHERE utilisateur_id = %s'''
         mycursor.execute(sql, (client_id,))
-        sql2 = '''UPDATE velo SET stock = stock + 1
+        sql2 = '''UPDATE velo SET stock = stock + %s
                   WHERE id_velo =%s'''
-        mycursor.execute(sql2, (id_velo,))
+        mycursor.execute(sql2, (quantite_panier, id_velo,))
         get_db().commit()
     return redirect('/client/velo/show')
 
@@ -145,7 +146,7 @@ def client_panier_filtre():
     filter_word = request.form.get('filter_word', None)
     filter_prix_min = request.form.get('filter_prix_min', None)
     filter_prix_max = request.form.get('filter_prix_max', None)
-    filter_types = request.form.get('filter_types', None)
+    filter_types = request.form.getlist('filter_types')
     print("word : " + filter_word + str(len(filter_word)))
     if filter_word or filter_word == '':
         if len(filter_word) > 1:

@@ -3,6 +3,7 @@
         <input name="filter_word"  type="text" placeholder="Recherche" size="10" class="form-control"
                value="{% if session['filter_word'] %}{{ session['filter_word'] }}{% endif %}"  >
     </div>
+<br>
    {% if items_filtre is defined %}
     <div class="form-group">
         <h4>Types velos</h4>
@@ -18,6 +19,7 @@
         {% endfor %}
     </div>
     {% endif %}
+<br>
 
     <div class="form-group">
         <h5>Prix :</h5>
@@ -27,6 +29,7 @@
        <input name="filter_prix_max"  type="text" placeholder="max"  size="3"
              value="{% if session['filter_prix_max'] %}{{ session['filter_prix_max'] }}{% endif %}" >
     </div>
+<br>
     <button type="submit" class="btn btn-primary" style="display: inline-block;">Filtrer</button>
 </form>
 {% if session['filter_word'] or session['filter_prix_max'] or session['filter_prix_min'] or session['filter_types']%}

@@ -21,8 +21,7 @@ velos (tableau de dictionnaires)
 <table class="table">
     <thead class="thead-dark">
         <tr>
-            <th>nom</th><th>id</th><th>type velo (id)</th><th>prix</th><th>taille</th><th>matiere</th><th>marque</th>
-            <th>fournisseur</th><th style="color: green">stock</th><th>nouveaux avis</th><th>nb déclinaisons</th><th>image</th><th>opération</th>
+            <th>nom</th><th>id</th><th>type velo (id)</th><th>prix</th><th>taille</th><th style="color: green">stock</th><th>nouveaux avis</th><th>nb déclinaisons</th><th>image</th><th>opération</th>
         </tr>
     </thead>
     <tbody>
@@ -33,10 +32,7 @@ velos (tableau de dictionnaires)
                   <td>{{ ligne.id_velo }}</td>
                   <td><span style="color: red">{{ ligne.libelle_type_velo }}</span> ({{ ligne.type_velo_id }})</td>
                   <td>{{  "{:,.2f} €".format(ligne.prix_velo) }}</td>
-                  <td>{{ ligne.libelle_taille }}</td>
-                  <td>{{ ligne.matiere }}</td>
-                  <td>{{ ligne.marque }}</td>
-                  <td>{{ ligne.fournisseur }}</td>
+                  <td>{{ ligne.taille_id }}</td>
                   <td>
                   {% if ligne.stock is defined %}
                      {% if ligne.stock != None  %}
@@ -77,7 +73,7 @@ velos (tableau de dictionnaires)
                   </td>
                   <td>{{ ligne.image }}
                         {%  if ligne.image is not none %}
-                            <img style="width:40px;height:40px"  src="{{ url_for('static', filename = 'images/' + ligne['image']) }}"  alt="image  de {{ ligne.nom }}" >
+                            <img style="width:40px;height:40px"  src="{{ url_for('static', filename = 'images/' + ligne['image']) }}"  alt="image  de {{ ligne.nom_velo }}" >
                         {% else %}
                             <img style="width:40px;height:40px"   src="{{ url_for('static', filename='images/no_photo.jpeg')}}"  alt="pas d image" >
                         {% endif %}
