@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="sie_e-commerce_velo@localhost" uuid="f8159314-9c18-4878-8134-081d4fb21572">
+    <data-source source="LOCAL" name="e_commerce@localhost" uuid="5303353c-b118-4171-8881-b877d05f5668">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/sie_e-commerce_velo</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
-    <data-source source="LOCAL" name="site_e-commerce_velo@localhost" uuid="ee91a237-fe41-4271-aa1a-e9a53e572a3b">
-      <driver-ref>mysql.8</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/site_e-commerce_velo</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3306/e_commerce</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>
