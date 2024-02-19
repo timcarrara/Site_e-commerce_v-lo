@@ -36,15 +36,37 @@ types_velo : tableau de dictionnaires
                     </label>                                         {# à modifier #}
 {#                https://blog.miguelgrinberg.com/post/handling-file-uploads-with-flask#}
 
-                <label for="type_velo_id">Type de l'velo :
-                    <select name="type_velo_id" class="form-select">
-                            {% for type in types_velo %}
-                                <option value="{{ type.id_type_velo }}"> {{ type.libelle_type_velo }}</option>
+                    <label for="type_velo_id">Type du velo :
+                        <select name="type_velo_id" required class="form-select">
+                            {% for typesVelo in types_velo %}
+                                <option value="{{ typesVelo.id_type_velo }}"
+                                    {% if velo.type_velo_id is defined and typesVelo.id_type_velo==velo.type_velo_id %}selected{% endif %}>
+                                    {{ typesVelo.id_type_velo }} : {{ typesVelo.libelle_type_velo }}
+                                </option>
                             {% endfor %}
                         </select>
                     </label>
+                    <label for="taille_id">Taille du velo :
+                        <select name="taille_id" required class="form-select">
+                            {% for tailleVelo in tailles %}
+                                <option value="{{ tailleVelo.id_taille }}"
+                                    {% if velo.taille_id is defined and tailleVelo.id_taille==velo.taille_id %}selected{% endif %}>
+                                    {{ tailleVelo.id_taille }} : {{ tailleVelo.libelle_taille }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </label>
+                    <label for="matiere">Matiere :
+                        <input name="matiere" type="text" value="{{ velo.matiere }}" class="form-control">
+                    </label>
                     <label for="description">Description :
                         <input name="description" type="text" value="{{ velo.description }}" class="form-control">
+                    </label>
+                    <label for="fournisseur">Fournisseur :
+                        <input name="fournisseur" type="text" value="{{ velo.fournisseur }}" class="form-control">
+                    </label>
+                    <label for="marque">Marque :
+                        <input name="marque" type="text" value="{{ velo.marque }}" class="form-control">
                     </label>
                     <label for="stock">Stock :
                         <input name="stock" type="number" value="{{ velo.stock }}" class="form-control">

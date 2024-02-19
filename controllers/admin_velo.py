@@ -110,27 +110,24 @@ def delete_velo():
 def edit_velo():
     id_velo=request.args.get('id_velo')
     mycursor = get_db().cursor()
-    sql = '''
-    requête admin_velo_6    
-    '''
+    sql = '''SELECT id_velo, nom_velo AS nom, prix_velo AS prix, taille_id, type_velo_id, matiere, description, fournisseur, marque, image, stock FROM velo
+             WHERE id_velo = %s;'''
     mycursor.execute(sql, id_velo)
     velo = mycursor.fetchone()
     print(velo)
-    sql = '''
-    requête admin_velo_7
-    '''
+    sql = '''SELECT * FROM type_velo'''
     mycursor.execute(sql)
     types_velo = mycursor.fetchall()
-
+    sql = '''SELECT * FROM taille'''
+    mycursor.execute(sql)
+    tailles = mycursor.fetchall()
     # sql = '''
     # requête admin_velo_6
     # '''
     # mycursor.execute(sql, id_velo)
     # declinaisons_velo = mycursor.fetchall()
 
-    return render_template('admin/velo/edit_velo.html'
-                           ,velo=velo
-                           ,types_velo=types_velo
+    return render_template('admin/velo/edit_velo.html', velo=velo, types_velo=types_velo, tailles=tailles
                          #  ,declinaisons_velo=declinaisons_velo
                            )
 
@@ -138,15 +135,18 @@ def edit_velo():
 @admin_velo.route('/admin/velo/edit', methods=['POST'])
 def valid_edit_velo():
     mycursor = get_db().cursor()
-    nom = request.form.get('nom')
-    id_velo = request.form.get('id_velo')
-    image = request.files.get('image', '')
+    nom = request.form.get('nom', '')
     type_velo_id = request.form.get('type_velo_id', '')
     prix = request.form.get('prix', '')
-    description = request.form.get('description')
-    sql = '''
-       requête admin_velo_8
-       '''
+    taille_id = request.form.get('taille_id', '')
+    matiere = request.form.get('matiere', '')
+    description = request.form.get('description', '')
+    marque = request.form.get('marque', '')
+    fournisseur = request.form.get('fournisseur', '')
+    stock = request.form.get('stock')
+    image = request.files.get('image', '')
+    id_velo = request.form.get('id_velo')
+    sql = '''SELECT image FROM velo WHERE id_velo=%s;'''
     mycursor.execute(sql, id_velo)
     image_nom = mycursor.fetchone()
     image_nom = image_nom['image']
@@ -159,14 +159,15 @@ def valid_edit_velo():
             filename = 'img_upload_' + str(int(2147483647 * random())) + '.png'
             image.save(os.path.join('static/images/', filename))
             image_nom = filename
-
-    sql = '''  requête admin_velo_9 '''
-    mycursor.execute(sql, (nom, image_nom, prix, type_velo_id, description, id_velo))
-
+    sql = '''UPDATE velo SET nom_velo = %s, prix_velo = %s, taille_id = %s, type_velo_id = %s, matiere = %s, description = %s, fournisseur = %s, marque = %s, stock = %s, image = %s 
+             WHERE id_velo = %s;'''
+    mycursor.execute(sql, (nom, prix, taille_id, type_velo_id, matiere, description, fournisseur, marque, stock, image_nom, id_velo))
+    print(nom, prix, type_velo_id, image_nom, stock, id_velo)
+    print(stock, 5)
     get_db().commit()
     if image_nom is None:
         image_nom = ''
-    message = u'velo modifié , nom:' + nom + '- type_velo :' + type_velo_id + ' - prix:' + prix  + ' - image:' + image_nom + ' - description: ' + description
+    message = u'velo modifié , nom: ' + nom + ' - type_velo: ' + type_velo_id + ' - prix: ' + prix + ' - taille: ' + taille_id + ' - stock: ', stock + ' - image: ' + image_nom
     flash(message, 'alert-success')
     return redirect('/admin/velo/show')
 
