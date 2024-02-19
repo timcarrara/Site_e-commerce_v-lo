@@ -53,26 +53,25 @@ def valid_add_velo():
     description = request.form.get('description', '')
     marque = request.form.get('marque', '')
     fournisseur = request.form.get('fournisseur', '')
+    stock = request.form.get('stock')
     image = request.files.get('image', '')
 
     if image:
-        filename = 'img_upload'+ str(int(2147483647 * random())) + '.png'
+        filename = 'img_upload' + str(int(2147483647 * random())) + '.png'
         image.save(os.path.join('static/images/', filename))
     else:
         print("erreur")
-        filename=None
+        filename = None
 
-    sql = '''INSERT INTO velo (id_velo, nom_velo, prix_velo, taille_id, type_velo_id, matiere, description, fournisseur, marque, image) VALUES (NULL, %s, %s, %s, %s, %s, %s, %s, %s, %s)'''
+    sql = '''INSERT INTO velo (id_velo, nom_velo, prix_velo, taille_id, type_velo_id, matiere, description, fournisseur, marque, stock, image) VALUES (NULL, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'''
 
-    tuple_add = (nom, prix, taille_id, type_velo_id, matiere, description, marque, fournisseur, filename,)
+    tuple_add = (nom, prix, taille_id, type_velo_id, matiere, description, fournisseur, marque, stock, filename,)
     print(tuple_add)
     mycursor.execute(sql, tuple_add)
     get_db().commit()
 
-    print(u'velo ajouté , nom: ', nom, ' - type_velo:', type_velo_id, ' - prix:', prix,
-          ' - description:', description, ' - image:', image)
-    message = u'velo ajouté , nom:' + nom + '- type_velo:' + type_velo_id + ' - prix:' + prix + ' - description:' + description + ' - image:' + str(
-        image)
+    print(u'velo ajouté , nom: ', nom, ' - type_velo: ', type_velo_id, ' - prix: ', prix, ' - taille: ', taille_id, ' - stock: ', stock, ' - image: ', image)
+    message = u'velo ajouté , nom: ' + nom + ' - type_velo: ' + type_velo_id + ' - prix: ' + prix + ' - taille: ' + taille_id + ' - stock: ', stock + ' - image: ' + str(image)
     flash(message, 'alert-success')
     return redirect('/admin/velo/show')
 

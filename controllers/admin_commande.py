@@ -14,18 +14,18 @@ def admin_index():
     return render_template('admin/layout_admin.html')
 
 
-@admin_commande.route('/admin/commande/show', methods=['get','post'])
+@admin_commande.route('/admin/commande/show', methods=['get', 'post'])
 def admin_commande_show():
     mycursor = get_db().cursor()
     admin_id = session['id_user']
     sql = '''SELECT id_commande, etat_id, login, date_achat, SUM(quantite_commande) as nbr_velos, SUM(velo.prix_velo * quantite_commande) as prix_total, etat.libelle_etat as libelle
-    FROM commande 
-    JOIN utilisateur ON commande.utilisateur_id = utilisateur.id_utilisateur
-    JOIN etat ON commande.etat_id = etat.id_etat
-    JOIN ligne_commande ON commande.id_commande = ligne_commande.commande_id
-    JOIN velo ON ligne_commande.velo_id = velo.id_velo
-    GROUP BY id_commande, etat_id, login, date_achat, etat.libelle_etat
-    ORDER BY etat_id, date_achat DESC  '''
+             FROM commande 
+             JOIN utilisateur ON commande.utilisateur_id = utilisateur.id_utilisateur
+             JOIN etat ON commande.etat_id = etat.id_etat
+             JOIN ligne_commande ON commande.id_commande = ligne_commande.commande_id
+             JOIN velo ON ligne_commande.velo_id = velo.id_velo
+             GROUP BY id_commande, etat_id, login, date_achat, etat.libelle_etat
+             ORDER BY etat_id, date_achat DESC;'''
     mycursor.execute(sql)
     commandes = mycursor.fetchall()
 #
@@ -33,7 +33,7 @@ def admin_commande_show():
     sql2 = '''SELECT velo.nom_velo AS nom, quantite_commande AS quantite, (velo.prix_velo * quantite_commande) AS prix_ligne, velo.prix_velo AS prix
               FROM ligne_commande 
               LEFT JOIN velo ON ligne_commande.velo_id = velo.id_velo
-              WHERE commande_id = %s'''
+              WHERE commande_id = %s;'''
     mycursor.execute(sql2, (commande_id,))
     velos_commande = mycursor.fetchall()
 
@@ -54,7 +54,7 @@ def admin_commande_valider():
     commande_id = request.form.get('id_commande', None)
     if commande_id != None:
         print(commande_id)
-        sql = '''UPDATE commande SET etat_id=2 WHERE  id_commande=%s'''
+        sql = '''UPDATE commande SET etat_id=2 WHERE  id_commande=%s;'''
         mycursor.execute(sql, commande_id)
         get_db().commit()
     return redirect('/admin/commande/show')
