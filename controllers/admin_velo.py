@@ -58,7 +58,7 @@ def valid_add_velo():
 
     if image:
         filename = 'img_upload' + str(int(2147483647 * random())) + '.png'
-        image.save(os.path.join('static/images/', filename))
+        image.save(os.path.join('./static/images/', filename))
     else:
         print("erreur")
         filename = None
@@ -157,7 +157,7 @@ def valid_edit_velo():
         # filename = secure_filename(image.filename)
         if image:
             filename = 'img_upload_' + str(int(2147483647 * random())) + '.png'
-            image.save(os.path.join('static/images/', filename))
+            image.save(os.path.join('./static/images/', filename))
             image_nom = filename
     sql = '''UPDATE velo SET nom_velo = %s, prix_velo = %s, taille_id = %s, type_velo_id = %s, matiere = %s, description = %s, fournisseur = %s, marque = %s, stock = %s, image = %s 
              WHERE id_velo = %s;'''
