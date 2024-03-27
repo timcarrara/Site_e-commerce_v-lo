@@ -180,7 +180,9 @@ INSERT INTO utilisateur(id_utilisateur,login,email,password,role,nom) VALUES
     'ROLE_client','client2');
 
 INSERT INTO declinaison_velo(stock, prix_declinaison, image, velo_id, taille_id, couleur_id) VALUES
-(10, 1599.00, 
+(10, 1599.00, 'kona-rove-se.jpg', 1, 2, 2)
+(5, 1599.00, 'kona-rove-se.jpg', 1, 2, 4)
+(2, 1599.00, 'kona-rove-se.jpg', 1, 3, 3)
 
 INSERT INTO etat(libelle_etat) VALUES
 ('en attente'),
