@@ -3,10 +3,12 @@ DROP TABLE IF EXISTS ligne_panier;
 DROP TABLE IF EXISTS ligne_commande;
 DROP TABLE IF EXISTS commande;
 DROP TABLE IF EXISTS etat;
+DROP TABLE IF EXISTS declinaison_velo;
 DROP TABLE IF EXISTS velo;
 DROP TABLE IF EXISTS utilisateur;
 DROP TABLE IF EXISTS type_velo;
 DROP TABLE IF EXISTS taille;
+DROP TABLE IF EXISTS couleur;
 
 CREATE TABLE taille (
     id_taille INT AUTO_INCREMENT,
@@ -18,6 +20,13 @@ CREATE TABLE type_velo (
     id_type_velo INT AUTO_INCREMENT,
     libelle_type_velo VARCHAR(255),
     PRIMARY KEY(id_type_velo)
+);
+
+CREATE TABLE couleur (
+    id_couleur INT AUTO_INCREMENT,
+    libelle VARCHAR(255),
+    code_couleur VARCHAR(255),
+    PRIMARY KEY(id_couleur)
 );
 
 CREATE TABLE utilisateur (
@@ -34,19 +43,31 @@ CREATE TABLE velo (
     id_velo INT AUTO_INCREMENT,
     nom_velo VARCHAR(255),
     prix_velo DECIMAL(10, 2),
-    taille_id INT NOT NULL,
     type_velo_id INT NOT NULL,
     matiere VARCHAR(255),
     description VARCHAR(4500),
     fournisseur VARCHAR(255),
     marque VARCHAR(255),
     image VARCHAR(255),
-    stock INT,
     PRIMARY KEY(id_velo),
     FOREIGN KEY (taille_id) REFERENCES taille(id_taille) ON DELETE CASCADE,
     FOREIGN KEY (type_velo_id) REFERENCES type_velo(id_type_velo) ON DELETE CASCADE
 );
 
+CREATE TABLE declinaison_velo (
+    id_declinaison_velo INT AUTO_INCREMENT,
+    stock INT,
+    prix_declinaison,
+    image VARCHAR(255),
+    velo_id INT NOT NULL,
+    taille_id INT NOT NULL,
+    couleur_id INT NOT NULL,
+    PRIMARY KEY(id_declinaison_velo)
+    FOREIGN KEY (velo_id) REFERENCES velo(id_velo)
+    FOREIGN KEY (taille_id) REFERENCES taille(id_taille),
+    FOREIGN KEY (type_velo_id) REFERENCES type_velo(id_type_velo)
+    );
+    
 CREATE TABLE etat (
     id_etat INT AUTO_INCREMENT,
     libelle_etat VARCHAR(255),
@@ -96,6 +117,7 @@ CREATE TABLE adresse (
 );
 
 INSERT INTO taille (libelle_taille) VALUES
+('Taille Unique')
 ('XS'),
 ('S'),
 ('M'),
@@ -112,6 +134,16 @@ INSERT INTO type_velo (libelle_type_velo) VALUES
 ('BMX'),
 ('VTC'),
 ('Vélo de route');
+
+INSERT INTO couleur(libelle, code_couleur)
+('Couleur Unique', ''),
+('Noir', '#000000'),
+('Turquoise', '#5DE2E7'),
+('Jaune', '#FFFF00'),
+('Rouge', '#FF0000'),
+('Vert', '#008000')
+('Bleu', '#0000FF')
+('Rose', '#FFC0CB')
 
 INSERT INTO velo (nom_velo, prix_velo, taille_id, type_velo_id, matiere, description, fournisseur, marque, image, stock) VALUES
 ('Kona Rove SE', 1599.00, 1, 1, 'Acier', 'Le Rove est devenu le vélo de prédilection pour des personnes du monde entier qui ont simplement envie de... partir ! Il est spécifié de manière optimale, agréable à regarder, le Rove facilite les déplacements quotidiens, les sentiers en gravier, ou la sortie sportive après le travail sur la colline locale. Le Rove est le vélo CrMo 650x47c insaisissable que vous pouvez vous permettre. Il était branché avant que la tendance ne devienne branchée. C''est un vélo qui veut rouler partout où VOUS voulez rouler. Tube de direction conique : Un diamètre plus important à la base du tube de direction distribue mieux la force de choc, prolongeant la durée de vie du roulement du jeu de direction lui-même et éliminant les vibrations des freins, tout en offrant une performance de direction confiante. La force inhérente de sa conception triangulaire signifie également une position de direction plus solide et un équilibre amélioré, offrant au cycliste plus de contrôle sur un terrain accidenté. Un tube de direction conique, de type "zero-stack", place également la force là où elle va - dans la partie inférieure du jeu de direction - maximisant la durabilité du roulement là où c''est nécessaire. Roues de 650b : Les roues et pneus de 650b ont un diamètre global similaire à celui d''un pneu traditionnel de 700c pour gravier ou de déplacement, mais avec une jante de diamètre inférieur et un pneu plus large et plus haut. Le volume d''air supplémentaire dans cette nouvelle génération de pneus urbains et mixtes signifie qu''ils peuvent être utilisés confortablement à des pressions plus basses tout en roulant rapidement sur une variété de surfaces. C''est le meilleur des deux mondes.', 'Kona', 'Kona', 'kona-rove-se.jpg', 0),
