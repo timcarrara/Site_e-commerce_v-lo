@@ -7,69 +7,66 @@ from connexion_db import get_db
 
 client_panier = Blueprint('client_panier', __name__, template_folder='templates')
 
+
 @client_panier.route('/client/panier/add', methods=['POST'])
 def client_panier_add():
     mycursor = get_db().cursor()
     utilisateur_id = session['id_user']
     id_velo = request.form.get('id_velo')
     quantite_panier = request.form.get('quantite')
+    id_declinaison_velo = request.form.get('id_declinaison_velo', None)
 
-    sql = '''SELECT quantite_panier FROM ligne_panier 
-             WHERE velo_id = %s AND utilisateur_id = %s;'''
-    mycursor.execute(sql, (id_velo, utilisateur_id,))
-    velopresent = mycursor.fetchone()
+    if id_declinaison_velo is None:
+        sql = '''SELECT * FROM declinaison_velo
+                 LEFT JOIN velo ON declinaison_velo.velo_id = velo.id_velo
+                 LEFT JOIN couleur ON declinaison_velo.couleur_id = couleur.id_couleur
+                 LEFT JOIN taille ON declinaison_velo.taille_id = taille.id_taille
+                 WHERE id_velo = %s;
+                 '''
+        mycursor.execute(sql, (id_velo,))
+    else:
+        sql = '''SELECT * FROM declinaison_velo
+                 WHERE velo_id = %s;
+                 '''
+        mycursor.execute(sql, (id_velo,))
+    declinaisons = mycursor.fetchall()
+    print(declinaisons)
 
-    if velopresent is None:
-        if quantite_panier == '0':
-            flash(u'la quantité doit être un numérique et supérieure à 0', 'alert-warning')
-        else:
-            sql = '''INSERT INTO ligne_panier (utilisateur_id, velo_id, date_ajout, quantite_panier) 
-                    VALUES (%s, %s, NOW(), %s);'''
-            mycursor.execute(sql, (utilisateur_id, id_velo, quantite_panier,))
+    if len(declinaisons) == 1:
+        id_declinaison_velo = declinaisons[0]['id_declinaison_velo']
+        sql = '''SELECT quantite_panier FROM ligne_panier 
+                  WHERE velo_declinaison_id = %s AND utilisateur_id = %s;'''
+        mycursor.execute(sql, (id_declinaison_velo, utilisateur_id,))
+        velopresent = mycursor.fetchone()
+        if velopresent is None:
+            sql = '''INSERT INTO ligne_panier (utilisateur_id, velo_declinaison_id, date_ajout, quantite_panier) 
+                      VALUES (%s, %s, NOW(), %s);'''
+            mycursor.execute(sql, (utilisateur_id, id_declinaison_velo, quantite_panier,))
             get_db().commit()
             print("if")
+        else:
+            sql = '''UPDATE ligne_panier SET quantite_panier = quantite_panier + %s
+                      WHERE velo_declinaison_id = %s AND utilisateur_id = %s;'''
+            mycursor.execute(sql, (quantite_panier, id_declinaison_velo, utilisateur_id,))
+            get_db().commit()
+            print("else")
 
+        sql = '''UPDATE declinaison_velo SET stock = stock - %s
+                 WHERE id_declinaison_velo = %s;'''
+        mycursor.execute(sql, (quantite_panier, id_declinaison_velo,))
+
+    elif len(declinaisons):
+        print("pb nb de declinaison")
     else:
-        sql = '''UPDATE ligne_panier SET quantite_panier = quantite_panier + %s
-                 WHERE velo_id = %s AND utilisateur_id = %s;'''
-        mycursor.execute(sql, (quantite_panier, id_velo, utilisateur_id,))
-        get_db().commit()
-        print("else")
-
-    sql = '''UPDATE velo SET stock = stock - %s
-             WHERE id_velo = %s;'''
-    mycursor.execute(sql, (quantite_panier, id_velo,))
-
-    get_db().commit()
-
-
-
-
-
-    #id_declinaison_velo=request.form.get('id_declinaison_velo',None)
-    id_declinaison_velo = 1
-
-# ajout dans le panier d'une déclinaison d'un velo (si 1 declinaison : immédiat sinon => vu pour faire un choix
-    # sql = '''    '''
-    # mycursor.execute(sql, (id_velo))
-    # declinaisons = mycursor.fetchall()
-    # if len(declinaisons) == 1:
-    #     id_declinaison_velo = declinaisons[0]['id_declinaison_velo']
-    # elif len(declinaisons) == 0:
-    #     abort("pb nb de declinaison")
-    # else:
-    #     sql = '''   '''
-    #     mycursor.execute(sql, (id_velo))
-    #     velo = mycursor.fetchone()
-    #     return render_template('client/boutique/declinaison_velo.html'
-    #                                , declinaisons=declinaisons
-    #                                , quantite=quantite
-    #                                , velo=velo)
-
-# ajout dans le panier d'un velo
-
-
+        sql = '''SELECT nom_velo, prix_velo, description
+                 FROM velo
+                 WHERE id_velo = %s;'''
+        mycursor.execute(sql, (id_velo,))
+        velo = mycursor.fetchone()
+        return render_template('client/boutique/declinaison_velo.html',
+                               declinaisons=declinaisons, velo=velo)
     return redirect('/client/velo/show')
+
 
 @client_panier.route('/client/panier/delete', methods=['POST'])
 def client_panier_delete():
@@ -99,9 +96,10 @@ def client_panier_delete():
 
     sql = '''UPDATE velo SET stock = stock + 1
              WHERE id_velo = %s;'''
-    mycursor.execute(sql, (id_velo, ))
+    mycursor.execute(sql, (id_velo,))
     get_db().commit()
     return redirect('/client/velo/show')
+
 
 @client_panier.route('/client/panier/vider', methods=['POST'])
 def client_panier_vider():
@@ -140,6 +138,7 @@ def client_panier_delete_line():
     mycursor.execute(sql_update, (velo_panier['quantite_panier'], id_velo))
     get_db().commit()
     return redirect('/client/velo/show')
+
 
 @client_panier.route('/client/panier/filtre', methods=['POST'])
 def client_panier_filtre():

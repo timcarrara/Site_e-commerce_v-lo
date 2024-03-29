@@ -50,7 +50,6 @@ CREATE TABLE velo (
     marque VARCHAR(255),
     image VARCHAR(255),
     PRIMARY KEY(id_velo),
-    FOREIGN KEY (taille_id) REFERENCES taille(id_taille) ON DELETE CASCADE,
     FOREIGN KEY (type_velo_id) REFERENCES type_velo(id_type_velo) ON DELETE CASCADE
 );
 
@@ -62,10 +61,10 @@ CREATE TABLE declinaison_velo (
     velo_id INT,
     taille_id INT NOT NULL,
     couleur_id INT NOT NULL,
-    PRIMARY KEY(id_declinaison_velo)
-    FOREIGN KEY (velo_id) REFERENCES velo(id_velo)
+    PRIMARY KEY(id_declinaison_velo),
+    FOREIGN KEY (velo_id) REFERENCES velo(id_velo),
     FOREIGN KEY (taille_id) REFERENCES taille(id_taille),
-    FOREIGN KEY (type_velo_id) REFERENCES type_velo(id_type_velo)
+    FOREIGN KEY (couleur_id) REFERENCES couleur(id_couleur)
     );
     
 CREATE TABLE etat (
@@ -117,7 +116,7 @@ CREATE TABLE adresse (
 );
 
 INSERT INTO taille (libelle_taille) VALUES
-('Taille Unique')
+('Taille Unique'),
 ('XS'),
 ('S'),
 ('M'),
@@ -141,9 +140,9 @@ INSERT INTO couleur(libelle, code_couleur) VALUES
 ('Turquoise', '#5DE2E7'),
 ('Jaune', '#FFFF00'),
 ('Rouge', '#FF0000'),
-('Vert', '#008000')
-('Bleu', '#0000FF')
-('Rose', '#FFC0CB')
+('Vert', '#008000'),
+('Bleu', '#0000FF'),
+('Rose', '#FFC0CB');
 
 INSERT INTO velo (nom_velo, prix_velo, type_velo_id, matiere, description, fournisseur, marque, image) VALUES
 ('Kona Rove SE', 1599.00, 1, 'Acier', 'Le Rove est devenu le vélo de prédilection pour des personnes du monde entier qui ont simplement envie de... partir ! Il est spécifié de manière optimale, agréable à regarder, le Rove facilite les déplacements quotidiens, les sentiers en gravier, ou la sortie sportive après le travail sur la colline locale. Le Rove est le vélo CrMo 650x47c insaisissable que vous pouvez vous permettre. Il était branché avant que la tendance ne devienne branchée. C''est un vélo qui veut rouler partout où VOUS voulez rouler. Tube de direction conique : Un diamètre plus important à la base du tube de direction distribue mieux la force de choc, prolongeant la durée de vie du roulement du jeu de direction lui-même et éliminant les vibrations des freins, tout en offrant une performance de direction confiante. La force inhérente de sa conception triangulaire signifie également une position de direction plus solide et un équilibre amélioré, offrant au cycliste plus de contrôle sur un terrain accidenté. Un tube de direction conique, de type "zero-stack", place également la force là où elle va - dans la partie inférieure du jeu de direction - maximisant la durabilité du roulement là où c''est nécessaire. Roues de 650b : Les roues et pneus de 650b ont un diamètre global similaire à celui d''un pneu traditionnel de 700c pour gravier ou de déplacement, mais avec une jante de diamètre inférieur et un pneu plus large et plus haut. Le volume d''air supplémentaire dans cette nouvelle génération de pneus urbains et mixtes signifie qu''ils peuvent être utilisés confortablement à des pressions plus basses tout en roulant rapidement sur une variété de surfaces. C''est le meilleur des deux mondes.', 'Kona', 'Kona', 'kona-rove-se.jpg'),
@@ -180,9 +179,9 @@ INSERT INTO utilisateur(id_utilisateur,login,email,password,role,nom) VALUES
     'ROLE_client','client2');
 
 INSERT INTO declinaison_velo(stock, prix_declinaison, image, velo_id, taille_id, couleur_id) VALUES
-(10, 1599.00, 'kona-rove-se.jpg', 1, 2, 2)
-(5, 1599.00, 'kona-rove-se.jpg', 1, 2, 4)
-(2, 1599.00, 'kona-rove-se.jpg', 1, 3, 3)
+(10, 1599.00, 'kona-rove-se.jpg', 1, 2, 2),
+(5, 1599.00, 'kona-rove-se.jpg', 1, 2, 4),
+(2, 1599.00, 'kona-rove-se.jpg', 1, 3, 3),
 (8, 1699.00, 'vitus-mythique-29-vrs.jpg', 2, 1, 1),
 (6, 1899.00, 'haibike-trekking-4-trapeze.jpg', 3, 4, 5),
 (6, 1899.00, 'haibike-trekking-4-trapeze.jpg', 3, 2, 3),
@@ -195,7 +194,7 @@ INSERT INTO declinaison_velo(stock, prix_declinaison, image, velo_id, taille_id,
 (11, 2099.00, 'kona-honzo.jpg', 10, 1, 1),
 (18, 2199.00, 'cube-reaction-hybrid-performance-500-allroad-trapeze.jpg', 11, 1, 3),
 (21, 2299.00, 'ridley-bikes-helium-disc-105.jpg', 12, 1, 1),
-(14, 2199.00, 'cube-aerium-c68-sl-low.jpg', 13, 1, 2),
+(0, 2199.00, 'cube-aerium-c68-sl-low.jpg', 13, 1, 2),
 (13, 2399.00, 'mongoose-california-special.jpg', 14, 1, 1),
 (15, 2599.00, 'ortler-detroit-cargo-steel-swing.jp', 15, 1, 1),
 (17, 2799.00, 'wethepeople-arcade.jpg', 16, 1, 3),
@@ -203,8 +202,7 @@ INSERT INTO declinaison_velo(stock, prix_declinaison, image, velo_id, taille_id,
 (20, 3199.00, 'vitus-escarpe-29-amp-intl-vitus.jpg', 18, 1, 2),
 (22, 3399.00, 'kona-dew-e-dl.jpg', 19, 1, 4),
 (24, 3599.00, 'ridley-bikes-kanzo-a-rival-1.jpg', 20, 1, 1),
-(25, 3799.00, 'trek-farley-ex.jpg', 21, 1, 3),
-(27, 3999.00, 'salsa-bucksaw-carbon.jpg', 22, 1, 1);
+(25, 3799.00, 'trek-farley-ex.jpg', 21, 1, 3);
 
 INSERT INTO etat(libelle_etat) VALUES
 ('en attente'),
@@ -220,19 +218,19 @@ INSERT INTO commande (date_achat, utilisateur_id, etat_id) VALUES
 ('2024-02-12 18:45:15', 2, 2),
 ('2024-02-15 09:00:00', 2, 2);
 
-INSERT INTO ligne_commande (commande_id, velo_id, prix, quantite_commande) VALUES
-(1, 10, 1599.00, 2),
-(1, 21, 2299.00, 1),
-(2, 4, 1299.00, 3),
-(3, 3,3099.00, 4),
-(3, 13, 6499.00, 1),
-(3, 18, 629.00, 2),
+INSERT INTO ligne_commande (commande_id, velo_declinaison_id, prix, quantite_commande) VALUES
+(1, 1, 1599.00, 2),
+(1, 2, 2299.00, 1),
+(2, 3, 1299.00, 3),
+(3, 4,3099.00, 4),
+(3, 5, 6499.00, 1),
+(3, 6, 629.00, 2),
 (4, 5, 5799.00, 2),
 (5, 16, 399.00, 2),
 (5, 14, 599.00, 1),
 (6, 12, 6499.00, 3);
 
-INSERT INTO ligne_panier (utilisateur_id, velo_id, date_ajout, quantite_panier) VALUES
+INSERT INTO ligne_panier (utilisateur_id, velo_declinaison_id, date_ajout, quantite_panier) VALUES
 (2, 12, '2024-01-24 08:00:00', 2),
 (2, 16, '2024-01-28 10:45:00', 3),
 (3, 8, '2024-01-15 12:15:00', 2),

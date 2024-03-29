@@ -27,7 +27,7 @@
 {# #}                               {% if item_panier.stock > 0 %}
                                 <form action="/client/panier/add"  style="display: inline-block;"  method="post">
 {# #}                                   <input type="hidden" name="id_declinaison_velo" value="{{ item_panier.id_declinaison_velo }}">
-                                        <input type="hidden" name="quantite" value="1">
+                                        <input type="hidden" name="quantite_panier" value="1">
                                         <input type="hidden" name="id_velo" value="{{ item_panier.id_velo }}">
                                     <button class="btn btn-primary" > + </button>
                                 </form>
