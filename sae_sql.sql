@@ -24,7 +24,7 @@ CREATE TABLE type_velo (
 
 CREATE TABLE couleur (
     id_couleur INT AUTO_INCREMENT,
-    libelle VARCHAR(255),
+    libelle_couleur VARCHAR(255),
     code_couleur VARCHAR(255),
     PRIMARY KEY(id_couleur)
 );
@@ -66,7 +66,7 @@ CREATE TABLE declinaison_velo (
     FOREIGN KEY (taille_id) REFERENCES taille(id_taille),
     FOREIGN KEY (couleur_id) REFERENCES couleur(id_couleur)
     );
-    
+
 CREATE TABLE etat (
     id_etat INT AUTO_INCREMENT,
     libelle_etat VARCHAR(255),
@@ -134,7 +134,7 @@ INSERT INTO type_velo (libelle_type_velo) VALUES
 ('VTC'),
 ('Vélo de route');
 
-INSERT INTO couleur(libelle, code_couleur) VALUES
+INSERT INTO couleur(libelle_couleur, code_couleur) VALUES
 ('Couleur Unique', ''),
 ('Noir', '#000000'),
 ('Turquoise', '#5DE2E7'),
@@ -179,30 +179,30 @@ INSERT INTO utilisateur(id_utilisateur,login,email,password,role,nom) VALUES
     'ROLE_client','client2');
 
 INSERT INTO declinaison_velo(stock, prix_declinaison, image, velo_id, taille_id, couleur_id) VALUES
-(10, 1599.00, 'kona-rove-se.jpg', 1, 2, 2),
-(5, 1599.00, 'kona-rove-se.jpg', 1, 2, 4),
-(2, 1599.00, 'kona-rove-se.jpg', 1, 3, 3),
-(8, 1699.00, 'vitus-mythique-29-vrs.jpg', 2, 1, 1),
-(6, 1899.00, 'haibike-trekking-4-trapeze.jpg', 3, 4, 5),
-(6, 1899.00, 'haibike-trekking-4-trapeze.jpg', 3, 2, 3),
-(15, 1299.00, 'cinelli-zydeco.jpg', 4, 1, 2),
-(6, 1499.00, '3t-exploro-race-ekar-1x13.jpg', 5, 1, 4),
-(9, 1699.00, 'ortler-van-dyck-trapeze.jpg', 6, 1, 1),
-(10, 1799.00, 'winora-domingo-27-sport-trapez', 7, 1, 1),
-(9, 1999.00, 'scool-nixe-alloy-18-kids.jpg', 8, 1, 4),
-(12, 1899.00, 'serious-bear-rock.jpg', 9, 1, 1),
-(11, 2099.00, 'kona-honzo.jpg', 10, 1, 1),
-(18, 2199.00, 'cube-reaction-hybrid-performance-500-allroad-trapeze.jpg', 11, 1, 3),
-(21, 2299.00, 'ridley-bikes-helium-disc-105.jpg', 12, 1, 1),
-(0, 2199.00, 'cube-aerium-c68-sl-low.jpg', 13, 1, 2),
-(13, 2399.00, 'mongoose-california-special.jpg', 14, 1, 1),
-(15, 2599.00, 'ortler-detroit-cargo-steel-swing.jp', 15, 1, 1),
-(17, 2799.00, 'wethepeople-arcade.jpg', 16, 1, 3),
-(19, 2999.00, 'winora-domingo-21-diamond.jpg', 17, 1, 1),
-(20, 3199.00, 'vitus-escarpe-29-amp-intl-vitus.jpg', 18, 1, 2),
-(22, 3399.00, 'kona-dew-e-dl.jpg', 19, 1, 4),
-(24, 3599.00, 'ridley-bikes-kanzo-a-rival-1.jpg', 20, 1, 1),
-(25, 3799.00, 'trek-farley-ex.jpg', 21, 1, 3);
+(10, 1599.00, 'kona-rove-se.jpg', 1, 1, 1),
+(8, 2099.99, 'vitus-mythique-29-vrs.jpg', 2, 1, 1),
+(6, 3099.00, 'haibike-trekking-4-trapeze.jpg', 3, 4, 5),
+(6, 3099.00, 'haibike-trekking-4-trapeze.jpg', 3, 2, 3),
+(15, 1299.00, 'cinelli-zydeco.jpg', 4, 2, 2),
+(2, 1299.00, 'cinelli-zydeco.jpg', 4, 3, 3),
+(15, 1299.00, 'cinelli-zydeco.jpg', 4, 4, 2),
+(6, 5799.00, '3t-exploro-race-ekar-1x13.jpg', 5, 1, 1),
+(9, 499.00, 'ortler-van-dyck-trapeze.jpg', 6, 1, 1),
+(10, 1049.00, 'winora-domingo-27-sport-trapez', 7, 1, 1),
+(9, 289.00, 'scool-nixe-alloy-18-kids.jpg', 8, 1, 1),
+(12, 2499.00, 'serious-bear-rock.jpg', 9, 1, 1),
+(11, 1599.00, 'kona-honzo.jpg', 10, 1, 1),
+(18, 2749.00, 'cube-reaction-hybrid-performance-500-allroad-trapeze.jpg', 11, 1, 1),
+(21, 3199.00, 'ridley-bikes-helium-disc-105.jpg', 12, 1, 1),
+(0, 6499.00, 'cube-aerium-c68-sl-low.jpg', 13, 1, 1),
+(13, 599.00, 'mongoose-california-special.jpg', 14, 1, 1),
+(25, 949.00, 'cube-nature-pro.jpg', 15, 1, 1),
+(15, 399.00, 'ortler-detroit-cargo-steel-swing.jp', 16, 1, 1),
+(17, 629.99, 'wethepeople-arcade.jpg', 17, 1, 1),
+(19, 629.00, 'winora-domingo-21-diamond.jpg', 18, 1, 1),
+(20, 6199.00, 'vitus-escarpe-29-amp-intl-vitus.jpg', 19, 1, 1),
+(22, 3519.00, 'kona-dew-e-dl.jpg', 20, 1, 1),
+(24, 2299.00, 'ridley-bikes-kanzo-a-rival-1.jpg', 21, 1, 1);
 
 INSERT INTO etat(libelle_etat) VALUES
 ('en attente'),

@@ -5,13 +5,12 @@ from flask import Blueprint
 from flask import request, render_template, redirect, flash
 from connexion_db import get_db
 
-admin_declinaison_velo = Blueprint('admin_declinaison_velo', __name__,
-                         template_folder='templates')
+admin_declinaison_velo = Blueprint('admin_declinaison_velo', __name__, template_folder='templates')
 
 
 @admin_declinaison_velo.route('/admin/declinaison_velo/add')
 def add_declinaison_velo():
-    id_velo=request.args.get('id_velo')
+    id_velo = request.args.get('id_velo')
     mycursor = get_db().cursor()
     velo=[]
     couleurs=None

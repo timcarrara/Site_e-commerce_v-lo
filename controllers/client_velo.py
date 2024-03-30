@@ -15,7 +15,7 @@ def client_velo_show():  # remplace client_index
 
     mycursor = get_db().cursor()
     sql = '''SELECT id_velo, nom_velo, velo.image, prix_velo,
-        stock, COUNT(id_declinaison_velo) as nb_declinaison
+        SUM(stock) AS stock, COUNT(id_declinaison_velo) AS nb_declinaison
         FROM declinaison_velo
         JOIN velo ON declinaison_velo.velo_id = velo.id_velo
         '''
@@ -42,29 +42,35 @@ def client_velo_show():  # remplace client_index
                 sql = sql + " OR "
             list_param.append(item)
         sql = sql + ")"
-    sql += "GROUP BY id_velo, nom_velo, velo.image, prix_velo, stock"
+    sql += "GROUP BY id_velo"
     tuple_sql = tuple(list_param)
     mycursor.execute(sql, tuple_sql)
     velos = mycursor.fetchall()
-    sql3 = ''' prise en compte des commentaires et des notes dans le SQL    '''
 
     sql = '''SELECT * FROM type_velo;'''
     mycursor.execute(sql)
     types_velo = mycursor.fetchall()
 
-    sql = '''SELECT nom_velo, quantite_panier, prix_velo FROM ligne_panier
+    sql = '''SELECT nom_velo, quantite_panier, prix_velo, stock, id_declinaison_velo, id_velo, id_couleur, 
+             id_taille, libelle_couleur, libelle_taille
+             FROM ligne_panier
              LEFT JOIN declinaison_velo ON ligne_panier.velo_declinaison_id = declinaison_velo.id_declinaison_velo
              LEFT JOIN velo ON declinaison_velo.velo_id = velo.id_velo
+             LEFT JOIN couleur ON declinaison_velo.couleur_id = couleur.id_couleur
+             LEFT JOIN taille ON declinaison_velo.taille_id = taille.id_taille
              WHERE utilisateur_id = %s;'''
     mycursor.execute(sql, (id_client,))
     velos_panier = mycursor.fetchall()
     print(velos_panier)
 
+    prix_total = None
     if len(velos_panier) >= 1:
-        sql = '''SELECT SUM(prix*quantite_commande) FROM ligne_commande AS prix_total'''
-        mycursor.execute(sql)
-        prix_total_panier = mycursor.fetchone()
-    else:
-        prix_total_panier = 0
+        sql = '''SELECT SUM(prix_declinaison*quantite_panier) AS prix_total 
+        FROM ligne_panier
+        LEFT JOIN declinaison_velo ON ligne_panier.velo_declinaison_id = declinaison_velo.id_declinaison_velo
+        WHERE utilisateur_id = %s;'''
+        mycursor.execute(sql, (id_client,))
+        prix_total = mycursor.fetchone()['prix_total']
+
     return render_template('client/boutique/panier_velo.html', velos=velos, types_velo=types_velo,
-                           velos_panier=velos_panier, prix_total_panier=prix_total_panier, items_filtre=types_velo)
+                           velos_panier=velos_panier, prix_total=prix_total, items_filtre=types_velo)

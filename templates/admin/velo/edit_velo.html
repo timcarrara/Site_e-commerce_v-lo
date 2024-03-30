@@ -46,31 +46,11 @@ types_velo : tableau de dictionnaires
                             {% endfor %}
                         </select>
                     </label>
-                    <label for="taille_id">Taille du velo :
-                        <select name="taille_id" required class="form-select">
-                            {% for tailleVelo in tailles %}
-                                <option value="{{ tailleVelo.id_taille }}"
-                                    {% if velo.taille_id is defined and tailleVelo.id_taille==velo.taille_id %}selected{% endif %}>
-                                    {{ tailleVelo.id_taille }} : {{ tailleVelo.libelle_taille }}
-                                </option>
-                            {% endfor %}
-                        </select>
-                    </label>
-                    <label for="matiere">Matiere :
-                        <input name="matiere" type="text" value="{{ velo.matiere }}" class="form-control">
-                    </label>
+
                     <label for="description">Description :
                         <input name="description" type="text" value="{{ velo.description }}" class="form-control">
                     </label>
-                    <label for="fournisseur">Fournisseur :
-                        <input name="fournisseur" type="text" value="{{ velo.fournisseur }}" class="form-control">
-                    </label>
-                    <label for="marque">Marque :
-                        <input name="marque" type="text" value="{{ velo.marque }}" class="form-control">
-                    </label>
-                    <label for="stock">Stock :
-                        <input name="stock" type="number" value="{{ velo.stock }}" class="form-control">
-                    </label>
+
                     <button class="btn btn-primary mt-2">
                                 Modifier
                     </button>

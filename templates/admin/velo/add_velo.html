@@ -18,13 +18,8 @@
                     <input name="prix" type="number" min="0.0" step="0.01" max="2147483647" value=""  class="form-control" required>
                 </label>
 
-                <label for="taille_id">Taille du velo :
-                    <select name="taille_id" required class="form-select">
-                        <option value="">Sélectionner une taille de velo</option>
-                        {% for tailleVelo in tailles %}
-                             <option value="{{ tailleVelo.id_taille }}"> {{ tailleVelo.libelle_taille }}</option>
-                        {% endfor %}
-                    </select>
+                <label for="image"> Image :
+                    <input name="image" type="file" onchange="loadFile(event)"   class="form-control">
                 </label>
 
                 <label for="type_velo_id">Type du velo :
@@ -36,28 +31,8 @@
                     </select>
                 </label>
 
-                <label for="matiere">Matière :
-                    <input name="matiere" type="text" value=""  class="form-control" required>
-                </label>
-
-                <label for="description">description :
+                <label for="description">Description :
                     <input name="description" type="text" class="form-control" >
-                </label>
-
-                <label for="fournisseur">Fournisseur :
-                    <input name="fournisseur" type="text" value=""  class="form-control" required>
-                </label>
-
-                <label for="marque">Marque :
-                    <input name="marque" type="text" value=""  class="form-control" required>
-                </label>
-
-                <label for="stock">Stock :
-                    <input name="stock" type="number" value=""  class="form-control" required>
-                </label>
-
-                <label for="image"> Image :
-                    <input name="image" type="file" onchange="loadFile(event)"   class="form-control">
                 </label>
 
                 <label for="submit">

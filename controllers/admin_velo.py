@@ -10,16 +10,18 @@ from flask import request, render_template, redirect, flash
 
 from connexion_db import get_db
 
-admin_velo = Blueprint('admin_velo', __name__,
-                          template_folder='templates')
+admin_velo = Blueprint('admin_velo', __name__, template_folder='templates')
 
 
 @admin_velo.route('/admin/velo/show')
 def show_velo():
     mycursor = get_db().cursor()
-    sql = '''SELECT * FROM velo
-            LEFT JOIN type_velo ON velo.type_velo_id = type_velo.id_type_velo
-            LEFT JOIN taille ON velo.taille_id = taille.id_taille'''
+    sql = '''SELECT velo.id_velo, velo.nom_velo, velo.prix_velo, velo.image, velo.type_velo_id, type_velo.libelle_type_velo, SUM(stock) AS stock, MIN(stock) AS min_stock,
+             COUNT(id_declinaison_velo) AS nb_declinaisons
+             FROM velo
+             LEFT JOIN declinaison_velo ON velo.id_velo = declinaison_velo.velo_id
+             LEFT JOIN type_velo ON velo.type_velo_id = type_velo.id_type_velo
+             GROUP BY id_velo'''
     mycursor.execute(sql)
     velos = mycursor.fetchall()
     return render_template('admin/velo/show_velo.html', velos=velos)
@@ -40,20 +42,13 @@ def add_velo():
                            #,couleurs=colors
 
 
-
 @admin_velo.route('/admin/velo/add', methods=['POST'])
 def valid_add_velo():
     mycursor = get_db().cursor()
-
     nom = request.form.get('nom', '')
     type_velo_id = request.form.get('type_velo_id', '')
     prix = request.form.get('prix', '')
-    taille_id = request.form.get('taille_id', '')
-    matiere = request.form.get('matiere', '')
     description = request.form.get('description', '')
-    marque = request.form.get('marque', '')
-    fournisseur = request.form.get('fournisseur', '')
-    stock = request.form.get('stock')
     image = request.files.get('image', '')
 
     if image:
@@ -63,28 +58,28 @@ def valid_add_velo():
         print("erreur")
         filename = None
 
-    sql = '''INSERT INTO velo (id_velo, nom_velo, prix_velo, taille_id, type_velo_id, matiere, description, fournisseur, marque, stock, image) VALUES (NULL, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'''
+    sql = '''INSERT INTO velo (id_velo, nom_velo, prix_velo, type_velo_id, description, image) VALUES (NULL, %s, %s, %s, %s, %s)'''
 
-    tuple_add = (nom, prix, taille_id, type_velo_id, matiere, description, fournisseur, marque, stock, filename,)
+    tuple_add = (nom, prix, type_velo_id, description, filename,)
     print(tuple_add)
     mycursor.execute(sql, tuple_add)
     get_db().commit()
 
-    print(u'velo ajouté , nom: ', nom, ' - type_velo: ', type_velo_id, ' - prix: ', prix, ' - taille: ', taille_id, ' - stock: ', stock, ' - image: ', image)
-    message = u'velo ajouté , nom: ' + nom + ' - type_velo: ' + type_velo_id + ' - prix: ' + prix + ' - taille: ' + taille_id + ' - stock: ', stock + ' - image: ' + str(image)
+    print(u'velo ajouté , nom: ', nom, ' - type_velo: ', type_velo_id, ' - prix: ', prix, ' - image: ', image)
+    message = u'velo ajouté , nom: ' + nom + ' - type_velo: ' + type_velo_id + ' - prix: ' + prix + ' - image: ' + str(image)
     flash(message, 'alert-success')
     return redirect('/admin/velo/show')
 
 
 @admin_velo.route('/admin/velo/delete', methods=['GET'])
 def delete_velo():
-    id_velo=request.args.get('id_velo')
+    id_velo = request.args.get('id_velo')
     mycursor = get_db().cursor()
     sql = ''' requête admin_velo_3 '''
     mycursor.execute(sql, id_velo)
     nb_declinaison = mycursor.fetchone()
     if nb_declinaison['nb_declinaison'] > 0:
-        message= u'il y a des declinaisons dans ce velo : vous ne pouvez pas le supprimer'
+        message = u'il y a des declinaisons dans ce velo : vous ne pouvez pas le supprimer'
         flash(message, 'alert-warning')
     else:
         sql = '''  '''
@@ -108,9 +103,9 @@ def delete_velo():
 
 @admin_velo.route('/admin/velo/edit', methods=['GET'])
 def edit_velo():
-    id_velo=request.args.get('id_velo')
+    id_velo = request.args.get('id_velo')
     mycursor = get_db().cursor()
-    sql = '''SELECT id_velo, nom_velo AS nom, prix_velo AS prix, taille_id, type_velo_id, matiere, description, fournisseur, marque, image, stock FROM velo
+    sql = '''SELECT id_velo, nom_velo AS nom, prix_velo AS prix, type_velo_id, description, image FROM velo
              WHERE id_velo = %s;'''
     mycursor.execute(sql, id_velo)
     velo = mycursor.fetchone()
@@ -118,16 +113,13 @@ def edit_velo():
     sql = '''SELECT * FROM type_velo'''
     mycursor.execute(sql)
     types_velo = mycursor.fetchall()
-    sql = '''SELECT * FROM taille'''
-    mycursor.execute(sql)
-    tailles = mycursor.fetchall()
     # sql = '''
     # requête admin_velo_6
     # '''
     # mycursor.execute(sql, id_velo)
     # declinaisons_velo = mycursor.fetchall()
 
-    return render_template('admin/velo/edit_velo.html', velo=velo, types_velo=types_velo, tailles=tailles
+    return render_template('admin/velo/edit_velo.html', velo=velo, types_velo=types_velo,
                          #  ,declinaisons_velo=declinaisons_velo
                            )
 
@@ -138,12 +130,7 @@ def valid_edit_velo():
     nom = request.form.get('nom', '')
     type_velo_id = request.form.get('type_velo_id', '')
     prix = request.form.get('prix', '')
-    taille_id = request.form.get('taille_id', '')
-    matiere = request.form.get('matiere', '')
     description = request.form.get('description', '')
-    marque = request.form.get('marque', '')
-    fournisseur = request.form.get('fournisseur', '')
-    stock = request.form.get('stock')
     image = request.files.get('image', '')
     id_velo = request.form.get('id_velo')
     sql = '''SELECT image FROM velo WHERE id_velo=%s;'''
@@ -159,22 +146,16 @@ def valid_edit_velo():
             filename = 'img_upload_' + str(int(2147483647 * random())) + '.png'
             image.save(os.path.join('static/images/', filename))
             image_nom = filename
-    sql = '''UPDATE velo SET nom_velo = %s, prix_velo = %s, taille_id = %s, type_velo_id = %s, matiere = %s, description = %s, fournisseur = %s, marque = %s, stock = %s, image = %s 
+    sql = '''UPDATE velo SET nom_velo = %s, prix_velo = %s, type_velo_id = %s, description = %s, image = %s 
              WHERE id_velo = %s;'''
-    mycursor.execute(sql, (nom, prix, taille_id, type_velo_id, matiere, description, fournisseur, marque, stock, image_nom, id_velo))
-    print(nom, prix, type_velo_id, image_nom, stock, id_velo)
-    print(stock, 5)
+    mycursor.execute(sql, (nom, prix, type_velo_id, description, image_nom, id_velo))
+    print(nom, prix, type_velo_id, image_nom, id_velo)
     get_db().commit()
     if image_nom is None:
         image_nom = ''
-    message = u'velo modifié , nom: ' + nom + ' - type_velo: ' + type_velo_id + ' - prix: ' + prix + ' - taille: ' + taille_id + ' - stock: ', stock + ' - image: ' + image_nom
+    message = u'velo modifié , nom: ' + nom + ' - type_velo: ' + type_velo_id + ' - prix: ' + prix + ' - image: ' + image_nom
     flash(message, 'alert-success')
     return redirect('/admin/velo/show')
-
-
-
-
-
 
 
 @admin_velo.route('/admin/velo/avis/<int:id>', methods=['GET'])
