@@ -113,14 +113,14 @@ def edit_velo():
     sql = '''SELECT * FROM type_velo'''
     mycursor.execute(sql)
     types_velo = mycursor.fetchall()
-    # sql = '''
-    # requête admin_velo_6
-    # '''
-    # mycursor.execute(sql, id_velo)
-    # declinaisons_velo = mycursor.fetchall()
+    sql = '''SELECT * FROM declinaison_velo
+             JOIN couleur ON declinaison_velo.couleur_id = couleur.id_couleur
+             JOIN taille ON declinaison_velo.taille_id = taille.id_taille
+             WHERE velo_id = %s'''
+    mycursor.execute(sql, id_velo)
+    declinaisons_velo = mycursor.fetchall()
 
-    return render_template('admin/velo/edit_velo.html', velo=velo, types_velo=types_velo,
-                         #  ,declinaisons_velo=declinaisons_velo
+    return render_template('admin/velo/edit_velo.html', velo=velo, types_velo=types_velo, declinaisons_velo=declinaisons_velo
                            )
 
 

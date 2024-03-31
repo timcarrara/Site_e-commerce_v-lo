@@ -25,6 +25,7 @@ from controllers.client_liste_envies import *
 app = Flask(__name__)
 app.secret_key = 'une cle(token) : grain de sel(any random string)'
 
+
 @app.teardown_appcontext
 def close_connection(exception):
     db = getattr(g, '_database', None)
@@ -41,6 +42,7 @@ def show_accueil():
 ##################gg
 
 # Middleware de sécurité
+
 
 @app.before_request
 def before_request():
@@ -59,7 +61,6 @@ def before_request():
      # if session['role'] == 'ROLE_admin':
      #    if not request.path.startswith('/admin'):
      #        return redirect('/admin')
-
 
 
 app.register_blueprint(auth_security)

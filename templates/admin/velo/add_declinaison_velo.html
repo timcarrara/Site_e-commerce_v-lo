@@ -24,7 +24,7 @@
                     <select name="couleur" required class="form-select">
                         <option value="">Sélectionner une couleur</option>
                         {% for couleur in couleurs %}
-                             <option value="{{ couleur.id_couleur }}"> {{ couleur.libelle }}</option>
+                             <option value="{{ couleur.id_couleur }}"> {{ couleur.libelle_couleur }}</option>
                         {% endfor %}
                     </select>
                 </label>
@@ -37,7 +37,7 @@
                     <select id="taille" name="taille" required class="form-select">
                         <option value="">Sélectionner une taille</option>
                         {% for taille in tailles %}
-                            <option value="{{ taille.id_taille }}"> {{ taille.libelle }}</option>
+                            <option value="{{ taille.id_taille }}"> {{ taille.libelle_taille }}</option>
                         {% endfor %}
                     </select>
                 </label>
