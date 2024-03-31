@@ -75,23 +75,28 @@ def valid_add_velo():
 def delete_velo():
     id_velo = request.args.get('id_velo')
     mycursor = get_db().cursor()
-    sql = ''' requête admin_velo_3 '''
-    mycursor.execute(sql, id_velo)
+    sql = '''SELECT COUNT(id_declinaison_velo)
+             FROM declinaison_velo
+             WHERE velo_id = %s
+             GROUP BY velo_id'''
+    mycursor.execute(sql, (id_velo,))
     nb_declinaison = mycursor.fetchone()
-    if nb_declinaison['nb_declinaison'] > 0:
+    if nb_declinaison:
         message = u'il y a des declinaisons dans ce velo : vous ne pouvez pas le supprimer'
         flash(message, 'alert-warning')
     else:
-        sql = '''  '''
-        mycursor.execute(sql, id_velo)
+        sql = '''SELECT image FROM velo
+                 WHERE id_velo = %s'''
+        mycursor.execute(sql, (id_velo,))
         velo = mycursor.fetchone()
         print(velo)
         image = velo['image']
 
-        sql = '''  '''
+        sql = '''DELETE FROM velo 
+                 WHERE id_velo = %s'''
         mycursor.execute(sql, id_velo)
         get_db().commit()
-        if image != None:
+        if image is not None:
             os.remove('static/images/' + image)
 
         print("un velo supprimé, id :", id_velo)
