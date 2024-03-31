@@ -6,9 +6,9 @@
 {% block body %}
     <h2>modifier la déclinaison d'un velo </h2>
         <div class="row mt-5">
-            velo : <strong>{{ declinaison_velo.nom }}</strong><br>
-            {% if declinaison_velo.image_velo is defined and declinaison_velo.image_velo is not none %}
-            <img class="card-img-top rounded mx-4 d-block"  style="width:200px; height:200px; border: 1px solid black; padding: 25px;"  src="{{ url_for('static', filename = 'images/')}}{{ declinaison_velo.image_velo}}"  alt="image  de {{ declinaison_velo["libelle"] }}" >
+            velo : <strong>{{ declinaison_velo.nom_velo }}</strong><br>
+            {% if declinaison_velo.image is defined and declinaison_velo.image is not none %}
+            <img class="card-img-top rounded mx-4 d-block"  style="width:200px; height:200px; border: 1px solid black; padding: 25px;"  src="{{ url_for('static', filename = 'images/')}}{{ declinaison_velo.image}}"  alt="image  de {{ declinaison_velo["libelle"] }}" >
             {% else %}
             <i class="card-img-top rounded mx-4 d-block">pas de photo</i>{#{{ declinaison_velo|pprint }}#}
             {% endif %}
@@ -25,12 +25,12 @@
                         <div>il faut faut la supprimer pour modifier la taille</div>
                         <input type="hidden" name="taille" value="1">
                     {% else %}
-                    <label for="id_taille">taille :
-                        <select name="id_taille" class="form-select">
+                    <label for="taille">taille :
+                        <select name="taille" class="form-select">
                             {% for taille in tailles %}
                                  <option value="{{ taille.id_taille }}"
                                          {% if taille.id_taille == declinaison_velo.taille_id %} selected {% endif %}
-                                 > {{ taille.libelle }}</option>
+                                 > {{ taille.libelle_taille }}</option>
                             {% endfor %}
                         </select>
                     </label>
@@ -40,12 +40,12 @@
                           <div>il faut faut la supprimer pour modifier la couleur</div>
                         <input type="hidden" name="couleur" value="1">
                     {% else %}
-                    <label for="id_couleur"> couleur :
-                        <select name="id_couleur" class="form-select">
+                    <label for="couleur"> couleur :
+                        <select name="couleur" class="form-select">
                             {% for couleur in couleurs %}
                                  <option value="{{ couleur.id_couleur }}"
                                          {% if couleur.id_couleur == declinaison_velo.couleur_id %} selected {% endif %}
-                                 > {{ couleur.libelle }}</option>
+                                 > {{ couleur.libelle_couleur }}</option>
                             {% endfor %}
                         </select>
                     </label>
