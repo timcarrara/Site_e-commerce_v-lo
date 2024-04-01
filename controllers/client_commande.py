@@ -1,8 +1,7 @@
 #! /usr/bin/python
 # -*- coding:utf-8 -*-
 from flask import Blueprint
-from flask import Flask, request, render_template, redirect, url_for, abort, flash, session, g
-from datetime import datetime
+from flask import request, render_template, redirect, flash, session
 from connexion_db import get_db
 
 client_commande = Blueprint('client_commande', __name__, template_folder='templates')
@@ -36,7 +35,7 @@ def client_commande_valide():
     mycursor.execute(sql, (id_client,))
     adresses = mycursor.fetchall()
     return render_template('client/boutique/panier_validation_adresses.html', adresses=adresses, velos_panier=velos_panier, prix_total=prix_total, validation=1
-                           #,id_adresse_fav=id_adresse_fav
+                           # ,id_addresse_fav=id_adresse_fav
                            )
 
 
@@ -88,7 +87,7 @@ def client_commande_show():
              WHERE utilisateur_id = %s
              GROUP BY id_commande, etat_id, date_achat, etat.libelle_etat   
              ORDER BY etat_id, date_achat DESC;'''
-    mycursor.execute(sql, (id_client, ))
+    mycursor.execute(sql, (id_client,))
     commandes = mycursor.fetchall()
 
     velos_commande = None
@@ -110,4 +109,5 @@ def client_commande_show():
         velos_commande = mycursor.fetchall()
         print(velos_commande)
 
-    return render_template('client/commandes/show.html', commandes=commandes, velos_commande=velos_commande, commande_adresses=commande_adresses)
+    return render_template('client/commandes/show.html', commandes=commandes, velos_commande=velos_commande,
+                           commande_adresses=commande_adresses)

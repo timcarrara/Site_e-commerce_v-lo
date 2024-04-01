@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding:utf-8 -*-
 from flask import Blueprint
-from flask import Flask, request, render_template, redirect, flash, session
+from flask import request, render_template, redirect
 
 from connexion_db import get_db
 
@@ -16,7 +16,6 @@ def admin_index():
 @admin_commande.route('/admin/commande/show', methods=['get', 'post'])
 def admin_commande_show():
     mycursor = get_db().cursor()
-    admin_id = session['id_user']
     sql = '''SELECT id_commande, etat_id, login, date_achat, SUM(quantite_commande) as nbr_velos, SUM(velo.prix_velo * quantite_commande) as prix_total, etat.libelle_etat as libelle
              FROM commande 
              LEFT JOIN utilisateur ON commande.utilisateur_id = utilisateur.id_utilisateur

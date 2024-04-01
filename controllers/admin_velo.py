@@ -1,12 +1,11 @@
 #! /usr/bin/python
 # -*- coding:utf-8 -*-
-import math
 import os.path
 from random import random
 
 from flask import Blueprint
 from flask import request, render_template, redirect, flash
-#from werkzeug.utils import secure_filename
+# from werkzeug.utils import secure_filename
 
 from connexion_db import get_db
 
@@ -39,7 +38,7 @@ def add_velo():
     mycursor.execute(sql)
     tailles = mycursor.fetchall()
     return render_template('admin/velo/add_velo.html', types_velo=type_velo, tailles=tailles)
-                           #,couleurs=colors
+    # ,couleurs=colors
 
 
 @admin_velo.route('/admin/velo/add', methods=['POST'])
@@ -66,7 +65,8 @@ def valid_add_velo():
     get_db().commit()
 
     print(u'velo ajouté , nom: ', nom, ' - type_velo: ', type_velo_id, ' - prix: ', prix, ' - image: ', image)
-    message = u'velo ajouté , nom: ' + nom + ' - type_velo: ' + type_velo_id + ' - prix: ' + prix + ' - image: ' + str(image)
+    message = u'velo ajouté , nom: ' + nom + ' - type_velo: ' + type_velo_id + ' - prix: ' + prix + ' - image: ' + str(
+        image)
     flash(message, 'alert-success')
     return redirect('/admin/velo/show')
 
@@ -125,7 +125,8 @@ def edit_velo():
     mycursor.execute(sql, id_velo)
     declinaisons_velo = mycursor.fetchall()
 
-    return render_template('admin/velo/edit_velo.html', velo=velo, types_velo=types_velo, declinaisons_velo=declinaisons_velo
+    return render_template('admin/velo/edit_velo.html', velo=velo, types_velo=types_velo,
+                           declinaisons_velo=declinaisons_velo
                            )
 
 
@@ -166,12 +167,9 @@ def valid_edit_velo():
 @admin_velo.route('/admin/velo/avis/<int:id>', methods=['GET'])
 def admin_avis(id):
     mycursor = get_db().cursor()
-    velo=[]
+    velo = []
     commentaires = {}
-    return render_template('admin/velo/show_avis.html'
-                           , velo=velo
-                           , commentaires=commentaires
-                           )
+    return render_template('admin/velo/show_avis.html', velo=velo, commentaires=commentaires)
 
 
 @admin_velo.route('/admin/comment/delete', methods=['POST'])
@@ -179,5 +177,4 @@ def admin_avis_delete():
     mycursor = get_db().cursor()
     velo_id = request.form.get('idVelo', None)
     userId = request.form.get('idUser', None)
-
     return admin_avis(velo_id)

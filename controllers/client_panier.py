@@ -58,16 +58,14 @@ def client_panier_add():
         mycursor.execute(sql, (quantite_panier, id_declinaison_velo))
 
     elif len(declinaisons) == 0:
-        abort("pb nb de declinaison")
+        abort('pb nb de declinaison')
     else:
         sql = '''SELECT id_velo, nom_velo, prix_velo, image
                  FROM velo 
                  WHERE id_velo = %s'''
         mycursor.execute(sql, (id_velo,))
         velo = mycursor.fetchone()
-        return render_template('client/boutique/declinaison_velo.html'
-                               , declinaisons=declinaisons
-                               , velo=velo)
+        return render_template('client/boutique/declinaison_velo.html', declinaisons=declinaisons, velo=velo)
     get_db().commit()
     return redirect('/client/velo/show')
 

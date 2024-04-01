@@ -12,7 +12,7 @@ client_velo = Blueprint('client_velo', __name__, template_folder='templates')
 @client_velo.route('/client/velo/show')  # remplace /client
 def client_velo_show():  # remplace client_index
     id_client = session['id_user']
-
+    print(session)
     mycursor = get_db().cursor()
     sql = '''SELECT id_velo, nom_velo, velo.image, prix_velo,
         SUM(stock) AS stock, COUNT(id_declinaison_velo) AS nb_declinaison
@@ -24,7 +24,7 @@ def client_velo_show():  # remplace client_index
     if "filter_word" in session or "filter_prix_min" in session or "filter_prix_max" in session or "filter_types" in session:
         sql = sql + " WHERE "
     if 'filter_word' in session:
-        sql = sql + " nom_velo Like %s "
+        sql = sql + " nom_velo LIKE %s "
         recherche = "%" + session['filter_word'] + "%"
         list_param.append(recherche)
         condition_and = " AND "
@@ -65,9 +65,10 @@ def client_velo_show():  # remplace client_index
 
     prix_total = None
     if len(velos_panier) >= 1:
-        sql = '''SELECT SUM(prix_declinaison*quantite_panier) AS prix_total 
+        sql = '''SELECT SUM(prix_velo*quantite_panier) AS prix_total 
         FROM ligne_panier
         LEFT JOIN declinaison_velo ON ligne_panier.velo_declinaison_id = declinaison_velo.id_declinaison_velo
+        LEFT JOIN velo ON declinaison_velo.velo_id = velo.id_velo
         WHERE utilisateur_id = %s;'''
         mycursor.execute(sql, (id_client,))
         prix_total = mycursor.fetchone()['prix_total']

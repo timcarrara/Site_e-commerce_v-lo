@@ -20,8 +20,7 @@
 {% block body %}
 <br>
 
-    <h2> nombre de velos :
-{#    <span style="color: red;">{{ cout_total.nbr_velos }}</span></h2>#}
+    <h2>Nombre de vélos : <span style="color: red;">{{ nbr_velos[0]['nbr_velos'] }}</span></h2>
 
 <table class="table">
     <thead class="thead-dark">
@@ -33,7 +32,7 @@
     {% if types_velos_nb | length >= 1 %}
         {% for ligne in types_velos_nb %}
            <tr>
-                  <td>{{ ligne.libelle }}</td>
+                  <td>{{ ligne.libelle_type_velo }}</td>
                   <td>{{ ligne.id_type_velo }}</td>
                    <td><span style="color: red">
                        {% if ligne.nbr_velos_stock is not none %}  {{ ligne.nbr_velos }} {% else %}
@@ -63,21 +62,19 @@
     <div style="width: 900px; height: 500px; border: #0a53be 1px solid;">
         <canvas id="Chart1" ></canvas>
     </div>
-    graphique 1
+    Graphique du cout par type de vélo
     <script>
 	var ctx1 = document.getElementById("Chart1").getContext("2d");
 	var Chart1 = new Chart( ctx1, {
   		type: "bar",
   		data: {
-  			labels: {{ labels | safe }},
+  			labels: {{ labels1 | safe }},
   			datasets: [
   				{
-  				label: "Type de velos (nombre)",
-  				data: {{ values | safe }},
+  				label: "Cout des velos (nombre)",
+  				data: {{ values1 | safe }},
   				fill: false,
-                 backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850",
-             "#faf24c"
-             , "#6a6ce7","#55f68f","#D0c309","#c45000"],
+                 backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#faf24c", "#6a6ce7", "#55f68f", "#D0c309", "#c45000", "#7ed321", "#d3d3d3", "#ff6f61"],
   				borderColor: "rgb(75,192,192)",
   				lineTension: 0.1
   				}
@@ -88,9 +85,9 @@
   		}
 	});
     </script>
+    <br>
 
-
-    <h2>demo graphique à secteurs : "camenberd" ,"donut" ( "pie-chart"  "doughtnut")</h2>
+    <h2>Graphique à secteurs pour les déclinaisons de vélo</h2>
 
     <canvas id="pie-chart" width="800" height="450"></canvas>
 
@@ -98,19 +95,17 @@
 	var Chart2 = new Chart(document.getElementById("pie-chart"), {
     type: 'pie',
     data: {
-      labels: {{ labels | safe }},
+      labels: {{ labels2 | safe }},
       datasets: [{
-        label: "Type de velos (nombre)",
-         backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850",
-             "#faf24c"
-             , "#6a6ce7","#55f68f","#D0c309","#c45000"],
-        data: {{ values | safe }},
+        label: "Declinaison(s) de velos (nombre)",
+         backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#faf24c", "#6a6ce7", "#55f68f", "#D0c309", "#c45000", "#7ed321", "#d3d3d3", "#ff6f61", "#ffcc5c", "#FF5733", "#33FFD7", "#FF33F5", "#337DFF", "#FF3350", "#33FF33", "#E033FF", "#33E0FF"],
+        data: {{ values2 | safe }},
       }]
     },
     options: {
       title: {
         display: true,
-        text: 'Type velo : nombre'
+        text: 'Declinaisons velo : nombre'
       }
      }
     });
@@ -120,3 +115,4 @@
     <br>
     <a href="https://www.youtube.com/watch?v=bZDnSUjfMt8" target="_blank">dataviz, c'est quoi ? (juste la première minute)</a>
 {% endblock %}
+</h2>

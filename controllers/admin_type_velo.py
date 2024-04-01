@@ -61,11 +61,3 @@ def valid_edit_type_velo():
     get_db().commit()
     flash(u'type velo modifié, id: ' + id_type_velo + " libelle : " + libelle, 'alert-success')
     return redirect('/admin/type-velo/show')
-
-
-
-
-
-
-
-
